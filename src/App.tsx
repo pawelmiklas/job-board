@@ -1,26 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { ChakraProvider } from "@chakra-ui/react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import LayoutWrapper from "components/LayoutWrapper/LayoutWrapper";
+import Home from "pages/Home/Home";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <ChakraProvider>
+        <LayoutWrapper>
+          <Switch>
+            <Route path="/">
+              <Home />
+            </Route>
+            <Route path="/offers">
+              <div>offers</div>
+            </Route>
+            <Route path="/offers/:id">
+              <div>offer</div>
+            </Route>
+            <Route path="/login">
+              <div>login</div>
+            </Route>
+            <Route path="/register">
+              <div>register</div>
+            </Route>
+            <Route path="/dashboard">
+              <div>dashboard</div>
+            </Route>
+            <Route path="/dashboard/profile">
+              <div>profile</div>
+            </Route>
+            <Route path="/dashboard/offers">
+              <div>offers</div>
+            </Route>
+            <Route path="/dashboard/offers/add">
+              <div>offer add</div>
+            </Route>
+            <Route path="/dashboard/offers/edit/:id">
+              <div>offer edit</div>
+            </Route>
+          </Switch>
+        </LayoutWrapper>
+      </ChakraProvider>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
