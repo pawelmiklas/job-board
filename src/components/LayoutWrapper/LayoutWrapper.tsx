@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import logo from "assets/logo.png";
+import { Link } from "react-router-dom";
 
 interface Props {
   children: React.ReactNode;
@@ -21,7 +22,9 @@ const LayoutWrapper = ({ children }: Props) => {
         <Container maxW="container.xl">
           <Flex>
             <Box p="4" d="flex" alignItems="center">
-              <Image src={logo} alt="logo" htmlWidth="200" />
+              <Link to="/">
+                <Image src={logo} alt="logo" htmlWidth="200" />
+              </Link>
             </Box>
             <Spacer />
             <Box p="4">

@@ -3,7 +3,7 @@ import React from "react";
 
 interface Props {}
 
-const HomeCard = (props: Props) => {
+const OfferCard = (props: Props) => {
   return (
     <Box borderBottom="1px" p="4" borderColor="gray.200">
       <Flex py="2">
@@ -52,4 +52,4 @@ const HomeCard = (props: Props) => {
   );
 };
 
-export default HomeCard;
+export default OfferCard;

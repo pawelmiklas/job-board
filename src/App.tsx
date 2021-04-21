@@ -3,6 +3,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import LayoutWrapper from "components/LayoutWrapper/LayoutWrapper";
 import Home from "pages/Home/Home";
+import Offers from "pages/Offers/Offers";
 
 const App = () => {
   return (
@@ -10,11 +11,11 @@ const App = () => {
       <ChakraProvider>
         <LayoutWrapper>
           <Switch>
-            <Route path="/">
+            <Route exact path="/">
               <Home />
             </Route>
             <Route path="/offers">
-              <div>offers</div>
+              <Offers />
             </Route>
             <Route path="/offers/:id">
               <div>offer</div>

@@ -1,30 +1,27 @@
 import { Box, Container, Flex, Text, Button, Input } from "@chakra-ui/react";
-import HomeCard from "components/HomeCard/HomeCard";
+import OfferCard from "components/OfferCard/OfferCard";
 import React from "react";
+import { Link } from "react-router-dom";
 
 interface Props {}
 
 const Home = (props: Props) => {
   return (
-    <Box w="100%" p={4} minH="1000" color="gray.700">
-      <Container maxW="container.xl">
-        <Box
-          p="4"
-          d="flex"
-          alignItems="center"
-          flexDirection="column"
-          bgGradient="linear(to-l, #6be1ff, #367bfa)"
-          h="280"
-          borderRadius="10"
-          justifyContent="center"
-          color="white"
-        >
-          <Text fontSize="4xl" fontWeight="bold" textAlign="center">
-            37 Offers for mobile developers
-          </Text>
-          <Text fontSize="xl">Find your dream job!</Text>
-        </Box>
-      </Container>
+    <Box w="100%" minH="1000" color="gray.700">
+      <Box
+        d="flex"
+        alignItems="center"
+        flexDirection="column"
+        bgGradient="linear(to-l, #6be1ff, #367bfa)"
+        h="280"
+        justifyContent="center"
+        color="white"
+      >
+        <Text fontSize="4xl" fontWeight="bold" textAlign="center">
+          37 Offers for mobile developers
+        </Text>
+        <Text fontSize="xl">Find your dream job!</Text>
+      </Box>
       <Container pt="4" maxW="container.lg" position="relative">
         <Box
           p="4"
@@ -45,13 +42,15 @@ const Home = (props: Props) => {
           </Button>
         </Box>
         <Flex flexDirection="column" mt="16">
-          <HomeCard />
-          <HomeCard />
-          <HomeCard />
-          <HomeCard />
+          <OfferCard />
+          <OfferCard />
+          <OfferCard />
+          <OfferCard />
         </Flex>
         <Flex py="8" justifyContent="center">
-          <Text color="gray.500">View all job positions</Text>
+          <Link to="/offers">
+            <Text color="gray.500">View all job positions</Text>
+          </Link>
         </Flex>
       </Container>
     </Box>
