@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import LayoutWrapper from "components/LayoutWrapper/LayoutWrapper";
 import Home from "pages/Home/Home";
 import Offers from "pages/Offers/Offers";
+import Offer from "pages/Offers/components/Offer/Offer";
 
 const App = () => {
   return (
@@ -14,11 +15,11 @@ const App = () => {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route path="/offers">
+            <Route exact path="/offers">
               <Offers />
             </Route>
             <Route path="/offers/:id">
-              <div>offer</div>
+              <Offer />
             </Route>
             <Route path="/login">
               <div>login</div>

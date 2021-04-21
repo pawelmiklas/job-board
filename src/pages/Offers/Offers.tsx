@@ -15,7 +15,6 @@ import {
 } from "@chakra-ui/react";
 import OfferCard from "components/OfferCard/OfferCard";
 import React from "react";
-import { Link } from "react-router-dom";
 
 const seniority = ["Trainee", "Junior", "Mid", "Senior", "Expert"];
 
@@ -61,8 +60,8 @@ const Offers = (props: Props) => {
           </Button>
         </Box>
         <Grid templateColumns="repeat(7, 1fr)" gap={4}>
-          <GridItem colSpan={2}>
-            <Flex flexDirection="column" mt="16">
+          <GridItem colSpan={2} mt="16">
+            <Flex flexDirection="column" position="sticky" top="0">
               <Text fontSize="md" fontWeight="500" mb="1" mt="3">
                 Seniority
               </Text>
@@ -93,10 +92,6 @@ const Offers = (props: Props) => {
               <Text fontSize="md" fontWeight="500" mb="1" mt="3">
                 Technologies
               </Text>
-              {/* Lokalizacja Technologie - swift, kotlin, react native,
-              flutter, rxJava, mvp/mvvm, Java, Git, Android Studio, Realm,
-              Jenkins, Firebase, Javascript, Typescript, Nodae, Redux, RxJs,
-              Dart, GraphQl */}
               <Button variant="solid" mt="4" colorScheme="blue">
                 Search
               </Button>
@@ -119,8 +114,8 @@ const Offers = (props: Props) => {
               </Flex>
             </Flex>
             <Flex flexDirection="column">
-              {[...Array(10)].map(() => (
-                <OfferCard />
+              {[...Array(10)].map((_, index) => (
+                <OfferCard key={index} />
               ))}
             </Flex>
             <Flex py="8" justifyContent="center">
