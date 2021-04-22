@@ -84,6 +84,7 @@ const Dashboard = () => {
             <Grid templateColumns="repeat(2, 1fr)" gap={4}>
               {InfoSummary.map((item) => (
                 <GridItem
+                  key={item.title}
                   colSpan={1}
                   bgColor={`${item.color}.50`}
                   border="2px"
