@@ -6,6 +6,7 @@ import Home from "pages/Home/Home";
 import Offers from "pages/Offers/Offers";
 import Offer from "pages/Offers/components/Offer/Offer";
 import ScrollToTop from "components/ScrollToTop/ScrollToTop";
+import Login from "pages/Login/Login";
 
 const App = () => {
   return (
@@ -24,10 +25,10 @@ const App = () => {
               <Offer />
             </Route>
             <Route path="/login">
-              <div>login</div>
+              <Login />
             </Route>
-            <Route path="/register">
-              <div>register</div>
+            <Route path="/registration">
+              <div>registration</div>
             </Route>
             <Route path="/dashboard">
               <div>dashboard</div>
