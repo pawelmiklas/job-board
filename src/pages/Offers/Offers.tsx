@@ -100,7 +100,7 @@ const Offers = (props: Props) => {
           <GridItem colSpan={5} mt="16">
             <Flex alignItems="center">
               <Text fontSize="md" color="gray.400">
-                28 result
+                28 results
               </Text>
               <Spacer />
               <Flex alignItems="center">
