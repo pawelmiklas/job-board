@@ -16,7 +16,7 @@ type Props<F> = {
 
 const PasswordInput = <F,>({ name, formik, placeholder }: Props<F>) => {
   const { handleChange, values, errors, touched, handleBlur } = formik;
-  const error = getIn(errors, name) && touched;
+  const error = getIn(errors, name) && getIn(touched, name);
   const [show, setShow] = useState(false);
 
   return (

@@ -10,7 +10,7 @@ type Props<F> = {
 
 const Input = <F,>({ name, formik, placeholder }: Props<F>) => {
   const { handleChange, values, errors, touched, handleBlur } = formik;
-  const error = getIn(errors, name) && touched;
+  const error = getIn(errors, name) && getIn(touched, name);
 
   return (
     <InputGroup size="md" display="flex" flexDirection="column">
