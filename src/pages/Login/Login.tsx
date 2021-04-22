@@ -4,7 +4,7 @@ import PasswordInput from "components/PasswordInput/PasswordInput";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { FormErrors } from "constants/formErrors";
 
 type LoginForm = {
@@ -18,14 +18,18 @@ const validationSchema = yup.object({
 });
 
 const Login = () => {
+  const history = useHistory();
   const formik = useFormik<LoginForm>({
     initialValues: {
       login: "",
       password: "",
     },
     validateOnChange: false,
+    validateOnBlur: true,
     validationSchema: validationSchema,
-    onSubmit: () => {},
+    onSubmit: () => {
+      history.push("/dashboard");
+    },
   });
 
   return (
