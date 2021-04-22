@@ -37,9 +37,11 @@ const Home = (props: Props) => {
           right="15px"
         >
           <Input placeholder="Search for job" />
-          <Button variant="solid" ml="4" colorScheme="blue">
-            Search
-          </Button>
+          <Link to="/offers">
+            <Button variant="solid" ml="4" colorScheme="blue">
+              Search
+            </Button>
+          </Link>
         </Box>
         <Flex flexDirection="column" mt="16">
           <OfferCard />
