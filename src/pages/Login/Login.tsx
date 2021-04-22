@@ -25,7 +25,6 @@ const Login = () => {
       password: "",
     },
     validateOnChange: false,
-    validateOnBlur: true,
     validationSchema: validationSchema,
     onSubmit: () => {
       history.push("/dashboard");
@@ -60,7 +59,7 @@ const Login = () => {
             colorScheme="blue"
             mt="5"
             onClick={() => formik.handleSubmit()}
-            disabled={formik.isSubmitting || !formik.isValid}
+            disabled={formik.isSubmitting}
           >
             Login
           </Button>

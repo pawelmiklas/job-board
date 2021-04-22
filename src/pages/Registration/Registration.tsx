@@ -87,7 +87,7 @@ const Registration = () => {
             colorScheme="blue"
             mt="5"
             onClick={() => formik.handleSubmit()}
-            disabled={formik.isSubmitting || !formik.isValid}
+            disabled={formik.isSubmitting}
           >
             Sign up
           </Button>
