@@ -13,7 +13,7 @@ type LoginForm = {
 };
 
 const validationSchema = yup.object({
-  login: yup.string().required(FormErrors.REQUIRED_FIELD),
+  login: yup.string().email().required(FormErrors.REQUIRED_FIELD),
   password: yup.string().required(FormErrors.REQUIRED_FIELD),
 });
 
