@@ -8,6 +8,7 @@ import Offer from "pages/Offers/components/Offer/Offer";
 import ScrollToTop from "components/ScrollToTop/ScrollToTop";
 import Login from "pages/Login/Login";
 import Registration from "pages/Registration/Registration";
+import Dashboard from "pages/Dashboard/Dashboard";
 
 const App = () => {
   return (
@@ -31,19 +32,19 @@ const App = () => {
             <Route path="/registration">
               <Registration />
             </Route>
-            <Route path="/dashboard">
-              <div>dashboard</div>
+            <Route exact path="/dashboard">
+              <Dashboard />
             </Route>
-            <Route path="/dashboard/profile">
+            <Route exact path="/dashboard/profile">
               <div>profile</div>
             </Route>
-            <Route path="/dashboard/offers">
+            <Route exact path="/dashboard/offers">
               <div>offers</div>
             </Route>
-            <Route path="/dashboard/offers/add">
+            <Route exact path="/dashboard/offers/add">
               <div>offer add</div>
             </Route>
-            <Route path="/dashboard/offers/edit/:id">
+            <Route exact path="/dashboard/offers/edit/:id">
               <div>offer edit</div>
             </Route>
           </Switch>
