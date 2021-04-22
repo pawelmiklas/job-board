@@ -7,11 +7,10 @@ import {
   Flex,
   Grid,
   GridItem,
-  List,
   Image,
+  List,
   Stack,
   Text,
-  Spacer,
 } from "@chakra-ui/react";
 import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
