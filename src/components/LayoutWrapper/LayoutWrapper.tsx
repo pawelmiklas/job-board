@@ -28,10 +28,14 @@ const LayoutWrapper = ({ children }: Props) => {
             </Box>
             <Spacer />
             <Box p="4">
-              <Button variant="ghost" mr="2">
-                Sign in
-              </Button>
-              <Button variant="ghost">Sign up</Button>
+              <Link to="/login">
+                <Button variant="ghost" mr="2">
+                  Sign in
+                </Button>
+              </Link>
+              <Link to="/registration">
+                <Button variant="ghost">Sign up</Button>
+              </Link>
             </Box>
           </Flex>
         </Container>
