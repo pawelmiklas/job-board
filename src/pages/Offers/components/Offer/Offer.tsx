@@ -182,15 +182,13 @@ const Offer = (props: Props) => {
               </List>
             </Flex>
           </GridItem>
-          <GridItem
-            colSpan={3}
-            border="1px"
-            borderColor="gray.300"
-            height="290"
-            position="sticky"
-            top="16px"
-          >
-            <Flex p="4" flexDirection="column">
+          <GridItem colSpan={3} position="sticky" top="16px">
+            <Flex
+              p="4"
+              flexDirection="column"
+              border="1px"
+              borderColor="gray.300"
+            >
               <Text fontSize="xl" fontWeight="600">
                 12 000 - 15 000 PLN
               </Text>
