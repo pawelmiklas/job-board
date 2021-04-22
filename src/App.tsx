@@ -5,12 +5,14 @@ import LayoutWrapper from "components/LayoutWrapper/LayoutWrapper";
 import Home from "pages/Home/Home";
 import Offers from "pages/Offers/Offers";
 import Offer from "pages/Offers/components/Offer/Offer";
+import ScrollToTop from "components/ScrollToTop/ScrollToTop";
 
 const App = () => {
   return (
     <BrowserRouter>
       <ChakraProvider>
         <LayoutWrapper>
+          <ScrollToTop />
           <Switch>
             <Route exact path="/">
               <Home />
