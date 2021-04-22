@@ -41,7 +41,7 @@ const Login = () => {
       >
         <Flex p="4" pb="0" flexDirection="column" w="100%">
           <Text textAlign="center" fontSize="3xl" fontWeight="600" mb="8">
-            Welcome Back
+            Welcome back
           </Text>
           <Stack spacing={5}>
             <Input name="login" placeholder="Email" formik={formik} />
