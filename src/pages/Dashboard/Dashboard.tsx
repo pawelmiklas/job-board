@@ -41,7 +41,7 @@ const InfoSummary: InfoSummaryType[] = [
   {
     title: "Balance (to be paid)",
     color: "purple",
-    amount: "480 zł",
+    amount: "480$",
   },
 ];
 
@@ -91,6 +91,7 @@ const Dashboard = () => {
                   borderColor={`${item.color}.100`}
                   borderRadius="4px"
                   minH="120"
+                  p="6"
                 >
                   <Flex
                     flexDirection="column"
@@ -98,7 +99,7 @@ const Dashboard = () => {
                     alignItems="center"
                     h="100%"
                   >
-                    <Text fontSize="2xl">
+                    <Text fontSize="2xl" textAlign="center">
                       {item.title}: <b>{item.amount}</b>
                     </Text>
                   </Flex>
