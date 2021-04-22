@@ -7,6 +7,7 @@ import Offers from "pages/Offers/Offers";
 import Offer from "pages/Offers/components/Offer/Offer";
 import ScrollToTop from "components/ScrollToTop/ScrollToTop";
 import Login from "pages/Login/Login";
+import Registration from "pages/Registration/Registration";
 
 const App = () => {
   return (
@@ -28,7 +29,7 @@ const App = () => {
               <Login />
             </Route>
             <Route path="/registration">
-              <div>registration</div>
+              <Registration />
             </Route>
             <Route path="/dashboard">
               <div>dashboard</div>
