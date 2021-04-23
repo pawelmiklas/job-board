@@ -1,11 +1,13 @@
-import { Box, Container, Text, Flex, Button, Stack } from "@chakra-ui/react";
+import { Box, Button, Container, Flex, Stack, Text } from "@chakra-ui/react";
+import { auth } from "App";
 import Input from "components/Input/Input";
 import PasswordInput from "components/PasswordInput/PasswordInput";
-import * as yup from "yup";
+import { FormErrors } from "constants/formErrors";
 import { useFormik } from "formik";
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import { FormErrors } from "constants/formErrors";
+import { toast } from "react-toastify";
+import * as yup from "yup";
 
 type LoginForm = {
   login: string;
@@ -26,8 +28,13 @@ const Login = () => {
     },
     validateOnChange: false,
     validationSchema: validationSchema,
-    onSubmit: () => {
-      history.push("/dashboard");
+    onSubmit: async (values) => {
+      try {
+        await auth.signInWithEmailAndPassword(values.login, values.password);
+        history.push("/dashboard");
+      } catch (error) {
+        toast.error("Niepoprawne dane logowania");
+      }
     },
   });
 

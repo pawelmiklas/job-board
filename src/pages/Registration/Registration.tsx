@@ -1,11 +1,13 @@
-import { Box, Container, Text, Flex, Button, Stack } from "@chakra-ui/react";
+import { Box, Button, Container, Flex, Stack, Text } from "@chakra-ui/react";
+import { auth } from "App";
 import Input from "components/Input/Input";
 import PasswordInput from "components/PasswordInput/PasswordInput";
-import * as yup from "yup";
+import { FormErrors } from "constants/formErrors";
 import { useFormik } from "formik";
 import React from "react";
-import { Link } from "react-router-dom";
-import { FormErrors } from "constants/formErrors";
+import { Link, useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
+import * as yup from "yup";
 
 type LoginForm = {
   company: string;
@@ -23,14 +25,17 @@ const validationSchema = yup.object({
   surname: yup.string().required(FormErrors.REQUIRED_FIELD),
   phoneNumber: yup.string().required(FormErrors.REQUIRED_FIELD),
   email: yup.string().email().required(FormErrors.REQUIRED_FIELD),
-  password: yup.string().required(FormErrors.REQUIRED_FIELD),
+  password: yup.string().min(6).required(FormErrors.REQUIRED_FIELD),
   confirmPassword: yup
     .string()
+    .min(6)
     .required(FormErrors.REQUIRED_FIELD)
     .oneOf([yup.ref("password")], FormErrors.PASSWORD_CONFIRMATION),
 });
 
 const Registration = () => {
+  const history = useHistory();
+
   const formik = useFormik<LoginForm>({
     initialValues: {
       company: "",
@@ -43,7 +48,18 @@ const Registration = () => {
     },
     validateOnChange: false,
     validationSchema: validationSchema,
-    onSubmit: () => {},
+    onSubmit: async (values) => {
+      try {
+        await auth.createUserWithEmailAndPassword(
+          values.email,
+          values.password
+        );
+        toast.success("Konto zostało stworzone");
+        history.push("/login");
+      } catch (error) {
+        toast.error("Rejestracja nie powiodła się");
+      }
+    },
   });
 
   return (
