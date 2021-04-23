@@ -15,6 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
+import AuthorizedRoute from "components/AuthorizedRoute/AuthorizedRoute";
 
 firebase.initializeApp({
   apiKey: "AIzaSyAzjNhRFQDnHnKgCVwZ9mnZT5fQ6cXTNls",
@@ -52,21 +53,21 @@ const App = () => {
             <Route path="/registration">
               <Registration />
             </Route>
-            <Route exact path="/dashboard">
+            <AuthorizedRoute exact path="/dashboard">
               <Dashboard />
-            </Route>
-            <Route exact path="/dashboard/profile">
+            </AuthorizedRoute>
+            <AuthorizedRoute exact path="/dashboard/profile">
               <div>profile</div>
-            </Route>
-            <Route exact path="/dashboard/offers">
+            </AuthorizedRoute>
+            <AuthorizedRoute exact path="/dashboard/offers">
               <div>offers</div>
-            </Route>
-            <Route exact path="/dashboard/offers/add">
+            </AuthorizedRoute>
+            <AuthorizedRoute exact path="/dashboard/offers/add">
               <div>offer add</div>
-            </Route>
-            <Route exact path="/dashboard/offers/edit/:id">
+            </AuthorizedRoute>
+            <AuthorizedRoute exact path="/dashboard/offers/edit/:id">
               <div>offer edit</div>
-            </Route>
+            </AuthorizedRoute>
           </Switch>
         </LayoutWrapper>
       </ChakraProvider>
