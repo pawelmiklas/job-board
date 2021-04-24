@@ -22,7 +22,7 @@ export type Offers = {
   description: string;
   id: string;
   languages: string[];
-  locations: string[];
+  location: string;
   mustHave: string[];
   niceToHave: string[];
   offerDetails: string;
@@ -34,7 +34,7 @@ export type Offers = {
   employmentType: string[];
 };
 
-type Filter = {
+export type Filter = {
   key: keyof Offers;
   operator: WhereFilterOperator;
   value: any;
@@ -49,16 +49,18 @@ type OfferCollectionProps = {
 const useOffersCollection = ({
   limit = 5,
   orderBy = "createdAt",
-  filterBy,
+  filterBy = [],
 }: OfferCollectionProps) => {
   const offersRef = firestore.collection("offers");
-  let query = offersRef.orderBy(orderBy).limit(limit);
 
-  if (filterBy?.length) {
-    filterBy.forEach(({ key, operator, value }) => {
-      query = query.where(key, operator, value);
-    });
-  }
+  let query = offersRef.limit(limit);
+
+  filterBy.forEach(({ key, operator, value }) => {
+    query = query.where(key, operator, value);
+  });
+
+  // firestore is not handling ordering with where clause
+  // query = query.orderBy(orderBy);
 
   return useCollectionData<Offers>(query, { idField: "id" });
 };

@@ -19,14 +19,12 @@ const CheckboxGroup = <F,>({ name, formik, options }: Props<F>) => (
               key={item}
               id={name}
               name={name}
-              checked={arrayHelpers.form.values.employmentType.includes(item)}
+              checked={arrayHelpers.form.values[name].includes(item)}
               onChange={(e) => {
                 if (e.target.checked) {
                   arrayHelpers.push(item);
                 } else {
-                  const ids = arrayHelpers.form.values.employmentType.indexOf(
-                    item
-                  );
+                  const ids = arrayHelpers.form.values[name].indexOf(item);
                   arrayHelpers.remove(ids);
                 }
               }}

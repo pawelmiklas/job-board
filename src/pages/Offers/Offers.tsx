@@ -5,9 +5,7 @@ import {
   Flex,
   Grid,
   GridItem,
-  NumberInput,
-  NumberInputField,
-  Select,
+  Select as ChakraSelect,
   Spacer,
   Text,
 } from "@chakra-ui/react";
@@ -16,40 +14,60 @@ import FilterSection from "components/FilterSection/FilterSection";
 import Input from "components/Input/Input";
 import OfferCard from "components/OfferCard/OfferCard";
 import { FormikProvider, useFormik } from "formik";
-import useOffersCollection from "hooks/useOffersCollection";
+import useOffersCollection, { Filter } from "hooks/useOffersCollection";
 import React, { useState } from "react";
 
 const seniority = ["Trainee", "Junior", "Mid", "Senior", "Expert"];
-
-const employmentType = ["B2B", "Permanent", "Mandate contract"];
 
 type Order = "createdAt" | "salaryFrom";
 
 type OffersValues = {
   seniority: string[];
   salaryFrom: string;
-  salaryTo: string;
-  employmentType: string;
-  locations: string;
-  technologies: string[];
+  location: string;
 };
 
 const Offers = () => {
   const [sortBy, setSortBy] = useState<Order>("createdAt");
+  const [filter, setFilter] = useState<Filter[]>([]);
   const formik = useFormik<OffersValues>({
     initialValues: {
       seniority: [],
       salaryFrom: "",
-      salaryTo: "",
-      employmentType: "",
-      locations: "",
-      technologies: [],
+      location: "",
     },
     validateOnChange: true,
-    onSubmit: () => {},
+    onSubmit: (values) => {
+      console.log("🚀 ~ file: Offers.tsx ~ line 53 ~ Offers ~ values", values);
+      let filters: Filter[] = [];
+
+      Object.entries(values).forEach(([key, value]) => {
+        if (value === "" || value.length === 0) {
+          return;
+        }
+
+        if (key === "location") {
+          filters.push({ key, operator: "==", value });
+        }
+
+        if (key === "salaryFrom") {
+          filters.push({ key, operator: ">=", value });
+        }
+
+        if (key === "seniority") {
+          filters.push({ key, operator: "array-contains-any", value });
+        }
+      });
+
+      setFilter(filters);
+    },
   });
 
-  const [offers] = useOffersCollection({ limit: 10, orderBy: sortBy });
+  const [offers] = useOffersCollection({
+    limit: 10,
+    orderBy: "salaryFrom",
+    filterBy: filter,
+  });
 
   return (
     <FormikProvider value={formik}>
@@ -65,7 +83,7 @@ const Offers = () => {
           color="white"
         >
           <Text fontSize="4xl" fontWeight="bold" textAlign="center">
-            {offers?.length} Offers for mobile developers
+            {offers?.length || 0} Offers for mobile developers
           </Text>
           <Text fontSize="xl">Find your dream job!</Text>
         </Box>
@@ -82,21 +100,13 @@ const Offers = () => {
                 </FilterSection>
                 <FilterSection title="Salary expectations">
                   <Flex justifyContent="center" alignItems="center">
-                    <NumberInput defaultValue={0} mr="2">
-                      <NumberInputField />
-                    </NumberInput>
-                    -
-                    <NumberInput defaultValue={30000} ml="2">
-                      <NumberInputField />
-                    </NumberInput>
+                    <Input
+                      name="salaryFrom"
+                      formik={formik}
+                      placeholder="From"
+                      type="number"
+                    />
                   </Flex>
-                </FilterSection>
-                <FilterSection title="Employment Type">
-                  <CheckboxGroup
-                    formik={formik}
-                    name="employmentType"
-                    options={employmentType}
-                  />
                 </FilterSection>
                 <FilterSection title="Location">
                   <Input
@@ -105,8 +115,12 @@ const Offers = () => {
                     placeholder="Location"
                   />
                 </FilterSection>
-                <FilterSection title="Technologies"></FilterSection>
-                <Button variant="solid" mt="4" colorScheme="blue">
+                <Button
+                  variant="solid"
+                  mt="4"
+                  colorScheme="blue"
+                  onClick={() => formik.handleSubmit()}
+                >
                   Search
                 </Button>
               </Flex>
@@ -114,14 +128,14 @@ const Offers = () => {
             <GridItem colSpan={5}>
               <Flex alignItems="center">
                 <Text fontSize="md" color="gray.400">
-                  {offers?.length} results
+                  {offers?.length || 0} results
                 </Text>
                 <Spacer />
                 <Flex alignItems="center">
                   <Text fontSize="md" minWidth="16">
                     Sort by
                   </Text>
-                  <Select
+                  <ChakraSelect
                     value={sortBy}
                     onChange={(e) => {
                       setSortBy(e.target.value as Order);
@@ -129,7 +143,7 @@ const Offers = () => {
                   >
                     <option value="salaryFrom">Price</option>
                     <option value="createdAt">Date</option>
-                  </Select>
+                  </ChakraSelect>
                 </Flex>
               </Flex>
               <Flex flexDirection="column">

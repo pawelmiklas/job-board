@@ -209,7 +209,7 @@ const Offer = (props: Props) => {
               </Text>
               <Divider />
               <Text fontSize="xl" fontWeight="600" mt="2">
-                Possible job locations
+                Possible job location
               </Text>
               <Text fontSize="md" fontWeight="400" color="gray.400">
                 Warsaw

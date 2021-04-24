@@ -1,35 +1,38 @@
-import { Input as ChakraInput, InputGroup, Text } from "@chakra-ui/react";
+import { Select as ChakraSelect, InputGroup, Text } from "@chakra-ui/react";
 import { FormikProps, getIn } from "formik";
 import React from "react";
 
 type Props<F> = {
   formik: FormikProps<F>;
   name: string;
-  placeholder: string;
-  type?: string;
+  options: string[];
 };
 
-const Input = <F,>({ name, formik, placeholder, type }: Props<F>) => {
+const Select = <F,>({ name, formik, options }: Props<F>) => {
   const { handleChange, values, errors, touched, handleBlur } = formik;
   const error = getIn(errors, name) && getIn(touched, name);
 
   return (
     <InputGroup size="md" display="flex" flexDirection="column">
-      <ChakraInput
+      <ChakraSelect
         id={name}
         name={name}
         isInvalid={!!error}
-        placeholder={placeholder}
         value={getIn(values, name)}
         onChange={handleChange}
         onBlur={handleBlur}
         errorBorderColor="crimson"
-        pr="4.5rem"
-        type={type}
-      />
+      >
+        <option value="all">All</option>
+        {options.map((item) => (
+          <option key={item} value={item}>
+            {item}
+          </option>
+        ))}
+      </ChakraSelect>
       {!!error && <Text color="crimson">{getIn(errors, name)}</Text>}
     </InputGroup>
   );
 };
 
-export default Input;
+export default Select;
