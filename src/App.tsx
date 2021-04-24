@@ -56,9 +56,6 @@ const App = () => {
             <AuthorizedRoute exact path="/dashboard">
               <Dashboard />
             </AuthorizedRoute>
-            <AuthorizedRoute exact path="/dashboard/profile">
-              <div>profile</div>
-            </AuthorizedRoute>
             <AuthorizedRoute exact path="/dashboard/offers">
               <div>offers</div>
             </AuthorizedRoute>

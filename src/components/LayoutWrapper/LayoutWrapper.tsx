@@ -55,9 +55,7 @@ const LayoutWrapper = ({ children }: Props) => {
                 >
                   Logout
                 </Button>
-                <Link to="/profile">
-                  <Avatar src="https://bit.ly/dan-abramov" />
-                </Link>
+                <Avatar src="https://bit.ly/dan-abramov" />
               </Box>
             ) : (
               <Box p="4">
