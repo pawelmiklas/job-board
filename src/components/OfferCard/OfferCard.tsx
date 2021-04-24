@@ -1,53 +1,71 @@
 import { Badge, Box, Flex, Image, Spacer, Text } from "@chakra-ui/react";
+import { Offers } from "hooks/useOffersCollection";
 import React from "react";
 import { Link } from "react-router-dom";
 
-interface Props {}
+type Props = Pick<
+  Offers,
+  | "id"
+  | "benefits"
+  | "company"
+  | "createdAt"
+  | "description"
+  | "locations"
+  | "salaryFrom"
+  | "salaryTo"
+  | "title"
+>;
 
-const OfferCard = (props: Props) => {
+const OfferCard = ({
+  benefits,
+  company,
+  createdAt,
+  description,
+  locations,
+  salaryFrom,
+  salaryTo,
+  title,
+  id,
+}: Props) => {
   return (
-    <Link to="/offers/1">
+    <Link to={`/offers/${id}`}>
       <Box borderBottom="1px" p="4" borderColor="gray.200">
         <Flex py="2">
           <Box>
             <Image
-              src="https://picsum.photos/200"
+              src={`https://picsum.photos/seed/${id}/200`}
               htmlWidth="70"
               borderRadius="10"
             />
           </Box>
           <Box pl="4">
             <Flex direction="column">
-              <Text fontSize="2xl">Senior IOS developer</Text>
+              <Text fontSize="2xl">{title}</Text>
               <Flex>
                 <Text fontSize="md" mr="2">
-                  Netguru
+                  {company}
                 </Text>
-                <Text fontSize="md">Kraków</Text>
+                <Text fontSize="md">{locations.join(", ")}</Text>
               </Flex>
             </Flex>
           </Box>
           <Spacer />
           <Box>
-            <Text fontSize="md">6000$ - 9000$</Text>
+            <Text fontSize="md">{`${salaryFrom}$ - ${salaryTo}$`}</Text>
           </Box>
         </Flex>
         <Flex py="2">
-          <Text fontSize="md">
-            Cupidatat tempor irure nisi eu ullamco voluptate qui nulla eiusmod
-            labore sunt nostrud. Cupidatat tempor irure nisi eu ullamco
-            voluptate qui nulla eiusmod labore sunt nostrud.
-          </Text>
+          <Text fontSize="md">{description}</Text>
         </Flex>
         <Flex py="2">
           <Box>
-            <Badge mr="1">Remote</Badge>
-            <Badge mr="1">Full time</Badge>
-            <Badge mr="1">IOS</Badge>
+            {benefits.map((item) => (
+              <Badge mr="1">{item}</Badge>
+            ))}
           </Box>
           <Spacer />
           <Box>
-            <Text color="gray.500">21 August 2021</Text>
+            <Text color="gray.500">{createdAt.seconds}</Text>
           </Box>
         </Flex>
       </Box>

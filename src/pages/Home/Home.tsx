@@ -1,11 +1,14 @@
 import { Box, Container, Flex, Text, Button, Input } from "@chakra-ui/react";
 import OfferCard from "components/OfferCard/OfferCard";
+import useOffersCollection from "hooks/useOffersCollection";
 import React from "react";
 import { Link } from "react-router-dom";
 
 interface Props {}
 
 const Home = (props: Props) => {
+  const [offers] = useOffersCollection({});
+
   return (
     <Box w="100%" minH="1000" color="gray.700">
       <Box
@@ -44,10 +47,9 @@ const Home = (props: Props) => {
           </Link>
         </Box>
         <Flex flexDirection="column" mt="16">
-          <OfferCard />
-          <OfferCard />
-          <OfferCard />
-          <OfferCard />
+          {offers?.map((item) => (
+            <OfferCard key={item.id} {...item} />
+          ))}
         </Flex>
         <Flex py="8" justifyContent="center">
           <Link to="/offers">
