@@ -14,12 +14,22 @@ import {
 } from "@chakra-ui/react";
 import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { firestore } from "App";
 import ListItemPerk from "components/ListItemPerk/ListItemPerk";
-import React from "react";
+import { useDocument } from "react-firebase-hooks/firestore";
+import { useParams } from "react-router";
+import { Offer as OfferType } from "hooks/useOffersCollection";
+import OfferSection from "components/OfferSection/OfferSection";
+import React, { Fragment } from "react";
 
-interface Props {}
+const Offer = () => {
+  const { id } = useParams<{ id: string }>();
+  const [value] = useDocument<OfferType>(firestore.doc(`offers/${id}`), {
+    snapshotListenOptions: { includeMetadataChanges: true },
+  });
 
-const Offer = (props: Props) => {
+  const data = value?.data();
+
   return (
     <Box w="100%" minH="1000" color="gray.700">
       <Container pt="4" pb="12" maxW="container.lg">
@@ -28,7 +38,7 @@ const Offer = (props: Props) => {
             <Flex p="4" pb="0">
               <Box>
                 <Image
-                  src="https://picsum.photos/200"
+                  src={`https://picsum.photos/seed/${id}/200`}
                   htmlWidth="130"
                   borderRadius="10"
                 />
@@ -40,25 +50,25 @@ const Offer = (props: Props) => {
                   height="100%"
                 >
                   <Text fontSize="3xl" fontWeight="600">
-                    Senior IOS developer
+                    {data?.title}
                   </Text>
                   <Flex flexDirection="column">
                     <Text fontSize="md" color="gray.400" display="flex">
                       Company:
                       <Text color="gray.900" ml="1">
-                        Shiji Poland
+                        {data?.company}
                       </Text>
                     </Text>
                     <Text fontSize="md" color="gray.400" display="flex">
                       Company size:
                       <Text color="gray.900" ml="1">
-                        100+ people
+                        {data?.companySize}
                       </Text>
                     </Text>
                     <Text fontSize="md" color="gray.400" display="flex">
                       Recruitment language:
                       <Text color="gray.900" ml="1">
-                        Polish, English
+                        {data?.languages.join(", ")}
                       </Text>
                     </Text>
                   </Flex>
@@ -66,119 +76,73 @@ const Offer = (props: Props) => {
               </Box>
             </Flex>
             <Flex flexDirection="column" p="4">
-              <Box spacing={3} mb="4">
-                <Text fontWeight="600" fontSize="xl">
-                  Brief job description
-                </Text>
-                <Text>
-                  Ipsum ea irure occaecat esse irure deserunt ipsum nisi id
-                  commodo sit fugiat velit. Incididunt consequat occaecat nisi
-                  laboris magna deserunt minim elit anim. Ea non consequat
-                  cillum laborum elit tempor deserunt nisi sunt dolore et in.
-                  Enim ad in duis commodo nulla aute. Culpa commodo dolore amet
-                  voluptate amet cillum. Cupidatat et labore reprehenderit
-                  laborum deserunt.
-                </Text>
-              </Box>
-              <Box spacing={3} mb="4">
-                <Text fontWeight="600" fontSize="xl">
-                  Must have
-                </Text>
+              <OfferSection title="Brief job description">
+                {data?.description}
+              </OfferSection>
+              <OfferSection title="Must have">
                 <Stack direction="row" mt="2">
-                  <Badge colorScheme="blue">Java</Badge>
-                  <Badge colorScheme="blue">Git</Badge>
-                  <Badge colorScheme="blue">RxJava</Badge>
-                  <Badge colorScheme="blue">Dagger</Badge>
-                  <Badge colorScheme="blue">Retrofit</Badge>
-                  <Badge colorScheme="blue">Android</Badge>
+                  {data?.mustHave.map((item) => (
+                    <Badge key={item} colorScheme="blue">
+                      {item}
+                    </Badge>
+                  ))}
                 </Stack>
-              </Box>
-              <Box spacing={3} mb="4">
-                <Text fontWeight="600" fontSize="xl">
-                  Nice to have
-                </Text>
+              </OfferSection>
+              <OfferSection title="Nice to have">
                 <Stack direction="row" mt="2">
-                  <Badge colorScheme="blue">Typescript</Badge>
-                  <Badge colorScheme="blue">React native</Badge>
-                  <Badge colorScheme="blue">Flutter</Badge>
-                  <Badge colorScheme="blue">English</Badge>
-                  <Badge colorScheme="blue">Kotlin</Badge>
+                  {data?.niceToHave.map((item) => (
+                    <Badge key={item} colorScheme="blue">
+                      {item}
+                    </Badge>
+                  ))}
                 </Stack>
-              </Box>
-              <Box spacing={3} mb="4">
-                <Text fontWeight="600" fontSize="xl">
-                  Work methodology
-                </Text>
+              </OfferSection>
+              <OfferSection title="Work methodology">
                 <Grid templateColumns="repeat(2, 1fr)" gap={1}>
-                  <Text>Agile management</Text>
-                  <Flex alignItems="center">
-                    <Box color="green.500">
-                      <FontAwesomeIcon icon={faCheckSquare} />
-                    </Box>
-                    <Text ml="2">Yes</Text>
-                  </Flex>
-                  <Text>Knowledge repository</Text>
-                  <Flex alignItems="center">
-                    <Box color="green.500">
-                      <FontAwesomeIcon icon={faCheckSquare} />
-                    </Box>
-                    <Text ml="2">Yes</Text>
-                  </Flex>
-                  <Text>Cloud infrastructure</Text>
-                  <Flex alignItems="center">
-                    <Box color="green.500">
-                      <FontAwesomeIcon icon={faCheckSquare} />
-                    </Box>
-                    <Text ml="2">Yes</Text>
-                  </Flex>
+                  {data?.workMethodology.map((item) => (
+                    <Fragment key={item}>
+                      <Text>{item}</Text>
+                      <Flex alignItems="center">
+                        <Box color="green.500">
+                          <FontAwesomeIcon icon={faCheckSquare} />
+                        </Box>
+                        <Text ml="2">Yes</Text>
+                      </Flex>
+                    </Fragment>
+                  ))}
                 </Grid>
-              </Box>
-              <Box spacing={3} mb="4">
-                <Text fontWeight="600" fontSize="xl">
-                  Offer details
-                </Text>
+              </OfferSection>
+              <OfferSection title="Offer details">
                 <Grid templateColumns="repeat(2, 1fr)" gap={1}>
-                  <Text>Job profile</Text>
-                  <Text color="gray.500">Mainly new features</Text>
-                  <Text>Start</Text>
-                  <Text color="gray.500">ASAP</Text>
-                  <Text>Flexible hours</Text>
-                  <Text color="gray.500">Yes</Text>
-                  <Text>Contract duration</Text>
-                  <Text color="gray.500">Permanent contract</Text>
-                  <Text>Remote possible</Text>
-                  <Text color="gray.500">Yes</Text>
+                  {Object.entries(data?.offerDetails || {}).map(
+                    ([key, value]) => (
+                      <Fragment key={key}>
+                        <Text>{key}</Text>
+                        <Text color="gray.500">
+                          {typeof value === "boolean" ? "Yes" : value}
+                        </Text>
+                      </Fragment>
+                    )
+                  )}
                 </Grid>
-              </Box>
-              <List spacing={3} mb="4">
-                <Text fontWeight="600" fontSize="xl">
-                  Perks in the office
-                </Text>
-                <Grid templateColumns="repeat(2, 1fr)" gap={2}>
-                  <ListItemPerk color="yellow.500" text="hold pure dollar" />
-                  <ListItemPerk color="yellow.500" text="blew window next" />
-                  <ListItemPerk color="yellow.500" text="time green cap" />
-                  <ListItemPerk
-                    color="yellow.500"
-                    text="grandmother dust sure"
-                  />
-                  <ListItemPerk color="yellow.500" text="putting such one" />
-                </Grid>
+              </OfferSection>
+              <List>
+                <OfferSection title="Perks in the office">
+                  <Grid templateColumns="repeat(2, 1fr)" gap={2}>
+                    {data?.perksInOffice.map((item) => (
+                      <ListItemPerk key={item} color="yellow.500" text={item} />
+                    ))}
+                  </Grid>
+                </OfferSection>
               </List>
-              <List spacing={3}>
-                <Text fontWeight="600" fontSize="xl">
-                  Benefits
-                </Text>
-                <Grid templateColumns="repeat(2, 1fr)" gap={2}>
-                  <ListItemPerk color="green.500" text="hold pure dollar" />
-                  <ListItemPerk color="green.500" text="blew window next" />
-                  <ListItemPerk color="green.500" text="time green cap" />
-                  <ListItemPerk
-                    color="green.500"
-                    text="grandmother dust sure"
-                  />
-                  <ListItemPerk color="green.500" text="putting such one" />
-                </Grid>
+              <List>
+                <OfferSection title="Benefits">
+                  <Grid templateColumns="repeat(2, 1fr)" gap={2}>
+                    {data?.benefits.map((item) => (
+                      <ListItemPerk key={item} color="green.500" text={item} />
+                    ))}
+                  </Grid>
+                </OfferSection>
               </List>
             </Flex>
           </GridItem>
@@ -190,32 +154,23 @@ const Offer = (props: Props) => {
               borderColor="gray.300"
             >
               <Text fontSize="xl" fontWeight="600">
-                12 000 - 15 000 PLN
-              </Text>
-              <Text fontSize="md" mt="-1" fontWeight="400" color="gray.400">
-                + vat (B2B) per month
-              </Text>
-              <Text fontSize="xl" fontWeight="600" mt="2">
-                10 000 - 13 000 PLN
+                {data?.salaryFrom} $
               </Text>
               <Text
                 fontSize="md"
                 mt="-1"
+                mb="3"
                 fontWeight="400"
                 color="gray.400"
-                mb="3"
               >
-                gross (employment contract) per month
+                + vat (B2B) per month
               </Text>
               <Divider />
               <Text fontSize="xl" fontWeight="600" mt="2">
                 Possible job location
               </Text>
               <Text fontSize="md" fontWeight="400" color="gray.400">
-                Warsaw
-              </Text>
-              <Text fontSize="md" fontWeight="400" color="gray.400">
-                Remotely
+                {data?.location}
               </Text>
               <Button variant="solid" colorScheme="blue" mt="3">
                 Apply

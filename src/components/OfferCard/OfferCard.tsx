@@ -1,11 +1,11 @@
 import { Badge, Box, Flex, Image, Spacer, Text } from "@chakra-ui/react";
-import { Offers } from "hooks/useOffersCollection";
+import { Offer } from "hooks/useOffersCollection";
 import React from "react";
 import { Link } from "react-router-dom";
 import { dateFormat } from "utils/dateFormat";
 
 type Props = Pick<
-  Offers,
+  Offer,
   | "id"
   | "benefits"
   | "company"

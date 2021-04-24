@@ -13,7 +13,7 @@ type WhereFilterOperator =
   | "array-contains-any"
   | "not-in";
 
-export type Offers = {
+export type Offer = {
   workMethodology: string[];
   benefits: string[];
   company: string;
@@ -25,7 +25,7 @@ export type Offers = {
   location: string;
   mustHave: string[];
   niceToHave: string[];
-  offerDetails: string;
+  offerDetails: object;
   perksInOffice: string[];
   salaryFrom: number;
   salaryTo: number;
@@ -35,14 +35,14 @@ export type Offers = {
 };
 
 export type Filter = {
-  key: keyof Offers;
+  key: keyof Offer;
   operator: WhereFilterOperator;
   value: any;
 };
 
 type OfferCollectionProps = {
   limit?: number;
-  orderBy?: keyof Offers;
+  orderBy?: keyof Offer;
   filterBy?: Filter[];
 };
 
@@ -62,7 +62,7 @@ const useOffersCollection = ({
   // firestore is not handling ordering with where clause
   // query = query.orderBy(orderBy);
 
-  return useCollectionData<Offers>(query, { idField: "id" });
+  return useCollectionData<Offer>(query, { idField: "id" });
 };
 
 export default useOffersCollection;
