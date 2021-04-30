@@ -10,12 +10,13 @@ import ScrollToTop from "components/ScrollToTop/ScrollToTop";
 import Login from "pages/Login/Login";
 import Registration from "pages/Registration/Registration";
 import Dashboard from "pages/Dashboard/Dashboard";
+import AuthorizedRoute from "components/AuthorizedRoute/AuthorizedRoute";
+import UserOffers from "pages/UserOffers/UserOffers";
 import "react-toastify/dist/ReactToastify.css";
 
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
-import AuthorizedRoute from "components/AuthorizedRoute/AuthorizedRoute";
 
 firebase.initializeApp({
   apiKey: "AIzaSyAzjNhRFQDnHnKgCVwZ9mnZT5fQ6cXTNls",
@@ -57,7 +58,7 @@ const App = () => {
               <Dashboard />
             </AuthorizedRoute>
             <AuthorizedRoute exact path="/dashboard/offers">
-              <div>offers</div>
+              <UserOffers />
             </AuthorizedRoute>
             <AuthorizedRoute exact path="/dashboard/offers/add">
               <div>offer add</div>

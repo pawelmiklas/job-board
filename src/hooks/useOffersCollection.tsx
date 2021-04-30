@@ -32,6 +32,7 @@ export type Offer = {
   title: string;
   seniority: string[];
   employmentType: string[];
+  userId: string;
 };
 
 export type Filter = {

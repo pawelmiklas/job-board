@@ -38,7 +38,6 @@ const Offers = () => {
     },
     validateOnChange: true,
     onSubmit: (values) => {
-      console.log("🚀 ~ file: Offers.tsx ~ line 53 ~ Offers ~ values", values);
       let filters: Filter[] = [];
 
       Object.entries(values).forEach(([key, value]) => {

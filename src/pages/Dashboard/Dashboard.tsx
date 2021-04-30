@@ -1,15 +1,6 @@
-import {
-  Box,
-  Container,
-  Flex,
-  Grid,
-  GridItem,
-  StackDivider,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Flex, Grid, GridItem, Text } from "@chakra-ui/react";
+import AuthDashboardWrapper from "components/AuthDashboardWrapper/AuthDashboardWrapper";
 import React from "react";
-import { Link } from "react-router-dom";
 
 type InfoSummaryType = {
   title: string;
@@ -45,72 +36,34 @@ const InfoSummary: InfoSummaryType[] = [
   },
 ];
 
-const Dashboard = () => {
-  return (
-    <Box w="100%" height="calc(100vh - 160px)" color="gray.700" minH="600px">
-      <Container pt="4" pb="12" h="100%" maxW="container.xl">
-        <Grid templateColumns="repeat(9, 1fr)" gap={4}>
-          <GridItem colSpan={2}>
-            <Flex
-              p="4"
-              flexDirection="column"
-              border="1px"
-              borderColor="gray.300"
-            >
-              <VStack
-                divider={<StackDivider borderColor="gray.200" />}
-                spacing={4}
-                align="stretch"
-              >
-                <Link to="/">
-                  <Box h="20px" cursor="pointer">
-                    Home
-                  </Box>
-                </Link>
-                <Link to="/dashboard">
-                  <Box h="20px" cursor="pointer">
-                    Dashboard
-                  </Box>
-                </Link>
-                <Link to="/dashboard/offers">
-                  <Box h="20px" cursor="pointer">
-                    Offers
-                  </Box>
-                </Link>
-              </VStack>
-            </Flex>
-          </GridItem>
-          <GridItem colSpan={7}>
-            <Grid templateColumns="repeat(2, 1fr)" gap={4}>
-              {InfoSummary.map((item) => (
-                <GridItem
-                  key={item.title}
-                  colSpan={1}
-                  bgColor={`${item.color}.50`}
-                  border="2px"
-                  borderColor={`${item.color}.100`}
-                  borderRadius="4px"
-                  minH="120"
-                  p="6"
-                >
-                  <Flex
-                    flexDirection="column"
-                    justifyContent="center"
-                    alignItems="center"
-                    h="100%"
-                  >
-                    <Text fontSize="2xl" textAlign="center">
-                      {item.title}: <b>{item.amount}</b>
-                    </Text>
-                  </Flex>
-                </GridItem>
-              ))}
-            </Grid>
-          </GridItem>
-        </Grid>
-      </Container>
-    </Box>
-  );
-};
+const Dashboard = () => (
+  <AuthDashboardWrapper>
+    <Grid templateColumns="repeat(2, 1fr)" gap={4}>
+      {InfoSummary.map((item) => (
+        <GridItem
+          key={item.title}
+          colSpan={1}
+          bgColor={`${item.color}.50`}
+          border="2px"
+          borderColor={`${item.color}.100`}
+          borderRadius="4px"
+          minH="120"
+          p="6"
+        >
+          <Flex
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+            h="100%"
+          >
+            <Text fontSize="2xl" textAlign="center">
+              {item.title}: <b>{item.amount}</b>
+            </Text>
+          </Flex>
+        </GridItem>
+      ))}
+    </Grid>
+  </AuthDashboardWrapper>
+);
 
 export default Dashboard;
