@@ -2,10 +2,15 @@ import { Checkbox } from "@chakra-ui/react";
 import { FieldArray, FormikProps, FormikProvider } from "formik";
 import React from "react";
 
+type OptionShape = {
+  label: string;
+  value: string;
+};
+
 type CheckboxGroupProps<F> = {
   formik: FormikProps<F>;
   name: string;
-  options: string[];
+  options: OptionShape[];
 };
 
 const CheckboxGroup = <F,>({
@@ -20,20 +25,22 @@ const CheckboxGroup = <F,>({
         <>
           {options.map((item) => (
             <Checkbox
-              key={item}
+              key={item.value}
               id={name}
               name={name}
-              checked={arrayHelpers.form.values[name].includes(item)}
+              checked={arrayHelpers.form.values[name].includes(item.value)}
               onChange={(e) => {
                 if (e.target.checked) {
-                  arrayHelpers.push(item);
+                  arrayHelpers.push(item.value);
                 } else {
-                  const ids = arrayHelpers.form.values[name].indexOf(item);
+                  const ids = arrayHelpers.form.values[name].indexOf(
+                    item.value
+                  );
                   arrayHelpers.remove(ids);
                 }
               }}
             >
-              {item}
+              {item.label}
             </Checkbox>
           ))}
         </>

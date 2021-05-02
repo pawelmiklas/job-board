@@ -17,7 +17,13 @@ import { FormikProvider, useFormik } from "formik";
 import useOffersCollection, { Filter } from "hooks/useOffersCollection";
 import React, { useState } from "react";
 
-const seniority = ["Trainee", "Junior", "Mid", "Senior", "Expert"];
+const seniority = [
+  { label: "Trainee", value: "Trainee" },
+  { label: "Junior", value: "Junior" },
+  { label: "Mid", value: "Mid" },
+  { label: "Senior", value: "Senior" },
+  { label: "Expert", value: "Expert" },
+];
 
 type Order = "createdAt" | "salaryFrom";
 
