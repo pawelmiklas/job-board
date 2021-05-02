@@ -22,7 +22,7 @@ import { Offer as OfferType } from "hooks/useOffersCollection";
 import OfferSection from "components/OfferSection/OfferSection";
 import React, { Fragment } from "react";
 
-const Offer = () => {
+const OfferView = () => {
   const { id } = useParams<{ id: string }>();
   const [value] = useDocument<OfferType>(firestore.doc(`offers/${id}`), {
     snapshotListenOptions: { includeMetadataChanges: true },
@@ -183,4 +183,4 @@ const Offer = () => {
   );
 };
 
-export default Offer;
+export default OfferView;
