@@ -53,24 +53,24 @@ const OfferView = () => {
                     {data?.title}
                   </Text>
                   <Flex flexDirection="column">
-                    <Text fontSize="md" color="gray.400" display="flex">
+                    <Box fontSize="md" color="gray.400" display="flex">
                       Company:
                       <Text color="gray.900" ml="1">
                         {data?.company}
                       </Text>
-                    </Text>
-                    <Text fontSize="md" color="gray.400" display="flex">
+                    </Box>
+                    <Box fontSize="md" color="gray.400" display="flex">
                       Company size:
                       <Text color="gray.900" ml="1">
                         {data?.companySize}
                       </Text>
-                    </Text>
-                    <Text fontSize="md" color="gray.400" display="flex">
+                    </Box>
+                    <Box fontSize="md" color="gray.400" display="flex">
                       Recruitment language:
                       <Text color="gray.900" ml="1">
                         {data?.languages.join(", ")}
                       </Text>
-                    </Text>
+                    </Box>
                   </Flex>
                 </Flex>
               </Box>
