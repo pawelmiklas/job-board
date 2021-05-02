@@ -21,17 +21,16 @@ export type Offer = {
   createdAt: { seconds: number; nanoseconds: number };
   description: string;
   id: string;
-  languages: string[];
+  language: string;
   location: string;
   mustHave: string[];
   niceToHave: string[];
   offerDetails: object;
   perksInOffice: string[];
   salaryFrom: number;
-  salaryTo: number;
   title: string;
-  seniority: string[];
-  employmentType: string[];
+  seniority: string;
+  employmentType: string;
   userId: string;
 };
 

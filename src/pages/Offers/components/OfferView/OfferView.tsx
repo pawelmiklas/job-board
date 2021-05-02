@@ -68,7 +68,7 @@ const OfferView = () => {
                     <Box fontSize="md" color="gray.400" display="flex">
                       Recruitment language:
                       <Text color="gray.900" ml="1">
-                        {data?.languages.join(", ")}
+                        {data?.language}
                       </Text>
                     </Box>
                   </Flex>

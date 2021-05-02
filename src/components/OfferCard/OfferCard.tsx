@@ -22,7 +22,6 @@ type OfferCardProps = Pick<
   | "description"
   | "location"
   | "salaryFrom"
-  | "salaryTo"
   | "title"
 > & {
   withActions?: boolean;
@@ -35,7 +34,6 @@ const OfferCard = ({
   description,
   location,
   salaryFrom,
-  salaryTo,
   title,
   id,
   withActions = false,
@@ -66,7 +64,7 @@ const OfferCard = ({
           </Box>
           <Spacer />
           <Box>
-            <Text fontSize="md">{`${salaryFrom}$ - ${salaryTo}$`}</Text>
+            <Text fontSize="md">{salaryFrom} $</Text>
           </Box>
         </Flex>
         <Flex py="2">
