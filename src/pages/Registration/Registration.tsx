@@ -81,7 +81,7 @@ const Registration = () => {
             <Input name="company" label="Company name" formik={formik} />
             <Input name="name" label="Name" formik={formik} />
             <Input name="surname" label="Surname" formik={formik} />
-            <Input name="phoneNumber" label="phoneNumber" formik={formik} />
+            <Input name="phoneNumber" label="Phone number" formik={formik} />
             <Input name="email" label="Email" formik={formik} />
             <PasswordInput
               name="password"
