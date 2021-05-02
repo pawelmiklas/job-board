@@ -1,5 +1,5 @@
 import React from "react";
-import { Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import { FormikProps, getIn } from "formik";
 
 interface FormFieldProps<F> {
@@ -20,7 +20,7 @@ const FormField = <F,>({
   const { errors } = formik;
 
   return (
-    <>
+    <Box flexDirection="column" w="100%">
       {!!label && <Text color="blackAlpha.800">{label}</Text>}
       {children}
       {!!error && (
@@ -28,7 +28,7 @@ const FormField = <F,>({
           {getIn(errors, name)}
         </Text>
       )}
-    </>
+    </Box>
   );
 };
 
