@@ -25,7 +25,13 @@ export type Offer = {
   location: string;
   mustHave: string[];
   niceToHave: string[];
-  offerDetails: object;
+  offerDetails: {
+    contractDuration: string;
+    flexibleHours: boolean;
+    jobProfile: string;
+    remotePossible: boolean;
+    start: string;
+  };
   perksInOffice: string[];
   salaryFrom: number;
   title: string;
