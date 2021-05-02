@@ -5,13 +5,14 @@ import { ToastContainer } from "react-toastify";
 import LayoutWrapper from "components/LayoutWrapper/LayoutWrapper";
 import Home from "pages/Home/Home";
 import Offers from "pages/Offers/Offers";
-import Offer from "pages/Offers/components/Offer/Offer";
+import OfferView from "pages/Offers/components/OfferView/OfferView";
 import ScrollToTop from "components/ScrollToTop/ScrollToTop";
 import Login from "pages/Login/Login";
 import Registration from "pages/Registration/Registration";
 import Dashboard from "pages/Dashboard/Dashboard";
 import AuthorizedRoute from "components/AuthorizedRoute/AuthorizedRoute";
 import UserOffers from "pages/UserOffers/UserOffers";
+import OfferAddEdit from "pages/Offers/components/OfferAddEdit/OfferAddEdit";
 import "react-toastify/dist/ReactToastify.css";
 
 import firebase from "firebase/app";
@@ -46,7 +47,7 @@ const App = () => {
               <Offers />
             </Route>
             <Route path="/offers/:id">
-              <Offer />
+              <OfferView />
             </Route>
             <Route path="/login">
               <Login />
@@ -61,10 +62,10 @@ const App = () => {
               <UserOffers />
             </AuthorizedRoute>
             <AuthorizedRoute exact path="/dashboard/offers/add">
-              <div>offer add</div>
+              <OfferAddEdit />
             </AuthorizedRoute>
             <AuthorizedRoute exact path="/dashboard/offers/edit/:id">
-              <div>offer edit</div>
+              <OfferAddEdit editable />
             </AuthorizedRoute>
           </Switch>
         </LayoutWrapper>
