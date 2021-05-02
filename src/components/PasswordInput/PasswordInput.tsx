@@ -1,45 +1,50 @@
 import {
-  InputGroup,
-  Text,
-  Input as ChakraInput,
-  InputRightElement,
   Button,
+  Input as ChakraInput,
+  InputGroup,
+  InputRightElement,
 } from "@chakra-ui/react";
+import FormField from "components/FormField/FormField";
 import { FormikProps, getIn } from "formik";
 import React, { useState } from "react";
 
 type Props<F> = {
   formik: FormikProps<F>;
   name: string;
-  placeholder: string;
+  label: string;
 };
 
-const PasswordInput = <F,>({ name, formik, placeholder }: Props<F>) => {
+const PasswordInput = <F,>({ name, formik, label }: Props<F>) => {
   const { handleChange, values, errors, touched, handleBlur } = formik;
-  const error = getIn(errors, name) && getIn(touched, name);
   const [show, setShow] = useState(false);
+  const error = getIn(errors, name) && getIn(touched, name);
 
   return (
-    <InputGroup size="md" display="flex" flexDirection="column">
-      <ChakraInput
-        id={name}
-        name={name}
-        isInvalid={!!error}
-        placeholder={placeholder}
-        value={getIn(values, name)}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        type={show ? "text" : "password"}
-        errorBorderColor="crimson"
-        pr="4.5rem"
-      />
-      <InputRightElement width="4.5rem">
-        <Button h="1.75rem" size="sm" onClick={() => setShow(!show)}>
-          {show ? "Hide" : "Show"}
-        </Button>
-      </InputRightElement>
-      {!!error && <Text color="crimson">{getIn(errors, name)}</Text>}
-    </InputGroup>
+    <FormField label={label} formik={formik} name={name} error={error}>
+      <InputGroup
+        size="md"
+        display="flex"
+        flexDirection="column"
+        mt="3px !important"
+      >
+        <ChakraInput
+          id={name}
+          name={name}
+          isInvalid={!!error}
+          value={getIn(values, name)}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          type={show ? "text" : "password"}
+          errorBorderColor="crimson"
+          pr="4.5rem"
+        />
+        <InputRightElement width="4.5rem">
+          <Button h="1.75rem" size="sm" onClick={() => setShow(!show)}>
+            {show ? "Hide" : "Show"}
+          </Button>
+        </InputRightElement>
+      </InputGroup>
+    </FormField>
   );
 };
 

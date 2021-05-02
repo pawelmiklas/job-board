@@ -1,4 +1,4 @@
-import { InputGroup, Select as ChakraSelect } from "@chakra-ui/react";
+import { Textarea as ChakraTextArea, InputGroup, Text } from "@chakra-ui/react";
 import FormField from "components/FormField/FormField";
 import { FormikProps, getIn } from "formik";
 import React from "react";
@@ -6,18 +6,10 @@ import React from "react";
 type Props<F> = {
   formik: FormikProps<F>;
   name: string;
-  options: string[];
-  withAllOptions?: boolean;
   label: string;
 };
 
-const Select = <F,>({
-  name,
-  formik,
-  options,
-  withAllOptions = true,
-  label,
-}: Props<F>) => {
+const TextArea = <F,>({ name, formik, label }: Props<F>) => {
   const { handleChange, values, errors, touched, handleBlur } = formik;
   const error = getIn(errors, name) && getIn(touched, name);
 
@@ -29,7 +21,7 @@ const Select = <F,>({
         flexDirection="column"
         mt="3px !important"
       >
-        <ChakraSelect
+        <ChakraTextArea
           id={name}
           name={name}
           isInvalid={!!error}
@@ -37,17 +29,11 @@ const Select = <F,>({
           onChange={handleChange}
           onBlur={handleBlur}
           errorBorderColor="crimson"
-        >
-          {withAllOptions && <option value="all">All</option>}
-          {options.map((item) => (
-            <option key={item} value={item}>
-              {item}
-            </option>
-          ))}
-        </ChakraSelect>
+          pr="4.5rem"
+        />
       </InputGroup>
     </FormField>
   );
 };
 
-export default Select;
+export default TextArea;
