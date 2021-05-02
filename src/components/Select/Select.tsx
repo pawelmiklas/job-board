@@ -3,7 +3,7 @@ import FormField from "components/FormField/FormField";
 import { FormikProps, getIn } from "formik";
 import React from "react";
 
-type Props<F> = {
+type SelectProps<F> = {
   formik: FormikProps<F>;
   name: string;
   options: string[];
@@ -17,7 +17,7 @@ const Select = <F,>({
   options,
   withAllOptions = true,
   label,
-}: Props<F>) => {
+}: SelectProps<F>) => {
   const { handleChange, values, errors, touched, handleBlur } = formik;
   const error = getIn(errors, name) && getIn(touched, name);
 

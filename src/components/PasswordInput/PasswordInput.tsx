@@ -8,13 +8,13 @@ import FormField from "components/FormField/FormField";
 import { FormikProps, getIn } from "formik";
 import React, { useState } from "react";
 
-type Props<F> = {
+type PasswordInputProps<F> = {
   formik: FormikProps<F>;
   name: string;
   label: string;
 };
 
-const PasswordInput = <F,>({ name, formik, label }: Props<F>) => {
+const PasswordInput = <F,>({ name, formik, label }: PasswordInputProps<F>) => {
   const { handleChange, values, errors, touched, handleBlur } = formik;
   const [show, setShow] = useState(false);
   const error = getIn(errors, name) && getIn(touched, name);

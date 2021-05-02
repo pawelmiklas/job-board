@@ -2,13 +2,17 @@ import { Checkbox } from "@chakra-ui/react";
 import { FieldArray, FormikProps, FormikProvider } from "formik";
 import React from "react";
 
-type Props<F> = {
+type CheckboxGroupProps<F> = {
   formik: FormikProps<F>;
   name: string;
   options: string[];
 };
 
-const CheckboxGroup = <F,>({ name, formik, options }: Props<F>) => (
+const CheckboxGroup = <F,>({
+  name,
+  formik,
+  options,
+}: CheckboxGroupProps<F>) => (
   <FormikProvider value={formik}>
     <FieldArray
       name={name}

@@ -3,13 +3,13 @@ import FormField from "components/FormField/FormField";
 import { FormikProps, getIn } from "formik";
 import React from "react";
 
-type Props<F> = {
+type TextAreaProps<F> = {
   formik: FormikProps<F>;
   name: string;
   label: string;
 };
 
-const TextArea = <F,>({ name, formik, label }: Props<F>) => {
+const TextArea = <F,>({ name, formik, label }: TextAreaProps<F>) => {
   const { handleChange, values, errors, touched, handleBlur } = formik;
   const error = getIn(errors, name) && getIn(touched, name);
 
