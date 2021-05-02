@@ -24,6 +24,8 @@ const AuthDashboardWrapper = ({ children }: AuthDashboardWrapperProps) => (
             flexDirection="column"
             border="1px"
             borderColor="gray.300"
+            position="sticky"
+            top="5"
           >
             <VStack
               divider={<StackDivider borderColor="gray.200" />}
