@@ -1,25 +1,28 @@
 import {
+  Avatar,
   Box,
+  Button,
   Container,
   Flex,
-  Spacer,
   Image,
-  Button,
+  Spacer,
   Text,
-  Avatar,
 } from "@chakra-ui/react";
-import React from "react";
-import logo from "assets/logo.png";
-import { Link, useHistory } from "react-router-dom";
 import { auth } from "App";
-import { useAuthState } from "react-firebase-hooks/auth";
+import logo from "assets/logo.png";
+import useLocalStorage from "hooks/useLocalStorage";
+import React from "react";
+import { Link, useHistory } from "react-router-dom";
 
 interface Props {
   children: React.ReactNode;
 }
 
 const LayoutWrapper = ({ children }: Props) => {
-  const [user] = useAuthState(auth);
+  const [user, setUser] = useLocalStorage<string | undefined>(
+    "userId",
+    undefined
+  );
   const history = useHistory();
 
   return (
@@ -50,6 +53,7 @@ const LayoutWrapper = ({ children }: Props) => {
                   mr="2"
                   onClick={() => {
                     auth.signOut();
+                    setUser(undefined);
                     history.push("/");
                   }}
                 >

@@ -1,15 +1,14 @@
 import { Button, Flex, Grid, Stack } from "@chakra-ui/react";
-import { auth } from "App";
 import AuthDashboardWrapper from "components/AuthDashboardWrapper/AuthDashboardWrapper";
 import OfferCard from "components/OfferCard/OfferCard";
+import useLocalStorage from "hooks/useLocalStorage";
 import useOffersCollection from "hooks/useOffersCollection";
 import React from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { useHistory } from "react-router";
 
 const UserOffers = () => {
   const history = useHistory();
-  const [user] = useAuthState(auth);
+  const [user] = useLocalStorage<string | undefined>("userId", undefined);
 
   const [offers] = useOffersCollection({
     limit: 10,
@@ -18,7 +17,7 @@ const UserOffers = () => {
       {
         key: "userId",
         operator: "==",
-        value: user?.uid,
+        value: user,
       },
     ],
   });

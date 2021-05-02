@@ -4,6 +4,7 @@ import Input from "components/Input/Input";
 import PasswordInput from "components/PasswordInput/PasswordInput";
 import { FormErrors } from "constants/formErrors";
 import { useFormik } from "formik";
+import useLocalStorage from "hooks/useLocalStorage";
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -21,6 +22,7 @@ const validationSchema = yup.object({
 
 const Login = () => {
   const history = useHistory();
+  const [, setUser] = useLocalStorage<string | undefined>("userId", undefined);
   const formik = useFormik<LoginForm>({
     initialValues: {
       login: "",
@@ -30,7 +32,12 @@ const Login = () => {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
-        await auth.signInWithEmailAndPassword(values.login, values.password);
+        const data = await auth.signInWithEmailAndPassword(
+          values.login,
+          values.password
+        );
+
+        setUser(data.user?.uid);
         history.push("/dashboard");
       } catch (error) {
         toast.error("Niepoprawne dane logowania");
