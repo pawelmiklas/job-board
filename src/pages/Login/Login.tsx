@@ -40,7 +40,7 @@ const Login = () => {
         setUser(data.user?.uid);
         history.push("/dashboard");
       } catch (error) {
-        toast.error("Niepoprawne dane logowania");
+        toast.error("Incorrect data");
       }
     },
   });
