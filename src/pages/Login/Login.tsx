@@ -54,10 +54,10 @@ const Login = () => {
             Welcome back
           </Text>
           <Stack spacing={5}>
-            <Input name="login" placeholder="Email" formik={formik} />
+            <Input name="login" label="Email" formik={formik} />
             <PasswordInput
               name="password"
-              placeholder="Enter password"
+              label="Enter password"
               formik={formik}
             />
           </Stack>

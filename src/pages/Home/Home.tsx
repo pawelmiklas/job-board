@@ -39,7 +39,7 @@ const Home = (props: Props) => {
           left="15px"
           right="15px"
         >
-          <Input placeholder="Search for job" />
+          <Input label="Search for job" />
           <Link to="/offers">
             <Button variant="solid" ml="4" colorScheme="blue">
               Search

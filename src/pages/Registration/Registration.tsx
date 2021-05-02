@@ -78,23 +78,19 @@ const Registration = () => {
             Registration
           </Text>
           <Stack spacing={5}>
-            <Input name="company" placeholder="Company name" formik={formik} />
-            <Input name="name" placeholder="Name" formik={formik} />
-            <Input name="surname" placeholder="Surname" formik={formik} />
-            <Input
-              name="phoneNumber"
-              placeholder="phoneNumber"
-              formik={formik}
-            />
-            <Input name="email" placeholder="Email" formik={formik} />
+            <Input name="company" label="Company name" formik={formik} />
+            <Input name="name" label="Name" formik={formik} />
+            <Input name="surname" label="Surname" formik={formik} />
+            <Input name="phoneNumber" label="phoneNumber" formik={formik} />
+            <Input name="email" label="Email" formik={formik} />
             <PasswordInput
               name="password"
-              placeholder="Enter password"
+              label="Enter password"
               formik={formik}
             />
             <PasswordInput
               name="confirmPassword"
-              placeholder="Confirm password"
+              label="Confirm password"
               formik={formik}
             />
           </Stack>
