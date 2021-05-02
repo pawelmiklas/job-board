@@ -24,7 +24,9 @@ type OfferCardProps = Pick<
   | "salaryFrom"
   | "salaryTo"
   | "title"
->;
+> & {
+  withActions?: boolean;
+};
 
 const OfferCard = ({
   benefits,
@@ -36,6 +38,7 @@ const OfferCard = ({
   salaryTo,
   title,
   id,
+  withActions = false,
 }: OfferCardProps) => {
   const history = useHistory();
 
@@ -82,35 +85,37 @@ const OfferCard = ({
             <Text color="gray.500">{dateFormat(createdAt.seconds)}</Text>
           </Box>
         </Flex>
-        <Flex py="2">
-          <Stack
-            spacing={4}
-            direction="row"
-            align="center"
-            justifyContent="flex-end"
-            width="100%"
-          >
-            <Button
-              colorScheme="red"
-              size="sm"
-              onClick={(e) => {
-                e.preventDefault();
-              }}
+        {withActions && (
+          <Flex py="2">
+            <Stack
+              spacing={4}
+              direction="row"
+              align="center"
+              justifyContent="flex-end"
+              width="100%"
             >
-              Usuń
-            </Button>
-            <Button
-              colorScheme="teal"
-              size="sm"
-              onClick={(e) => {
-                e.preventDefault();
-                history.push(`offers/edit/${id}`);
-              }}
-            >
-              Edytuj
-            </Button>
-          </Stack>
-        </Flex>
+              <Button
+                colorScheme="red"
+                size="sm"
+                onClick={(e) => {
+                  e.preventDefault();
+                }}
+              >
+                Usuń
+              </Button>
+              <Button
+                colorScheme="teal"
+                size="sm"
+                onClick={(e) => {
+                  e.preventDefault();
+                  history.push(`offers/edit/${id}`);
+                }}
+              >
+                Edytuj
+              </Button>
+            </Stack>
+          </Flex>
+        )}
       </Box>
     </Link>
   );
