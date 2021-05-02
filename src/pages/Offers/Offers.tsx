@@ -108,13 +108,13 @@ const Offers = () => {
                     <Input
                       name="salaryFrom"
                       formik={formik}
-                      label="From"
+                      label=""
                       type="number"
                     />
                   </Flex>
                 </FilterSection>
                 <FilterSection title="Location">
-                  <Input name="location" formik={formik} label="Location" />
+                  <Input name="location" formik={formik} label="" />
                 </FilterSection>
                 <Button
                   variant="solid"
