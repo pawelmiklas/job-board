@@ -23,6 +23,7 @@ import React, { Fragment, useMemo } from "react";
 import { useDocument } from "react-firebase-hooks/firestore";
 import { useParams } from "react-router";
 import { intersectionOptions } from "../OfferAddEdit/OfferAddEdit.utils";
+import NumberFormat from "react-number-format";
 
 const OfferView = () => {
   const { id } = useParams<{ id: string }>();
@@ -168,7 +169,12 @@ const OfferView = () => {
               borderColor="gray.300"
             >
               <Text fontSize="xl" fontWeight="600">
-                {data?.salaryFrom} $
+                <NumberFormat
+                  value={data?.salaryFrom}
+                  displayType="text"
+                  thousandSeparator
+                  suffix="$"
+                />
               </Text>
               <Text
                 fontSize="md"

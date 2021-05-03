@@ -54,10 +54,10 @@ const Registration = () => {
           values.email,
           values.password
         );
-        toast.success("Konto zostało stworzone");
+        toast.success("Account was created");
         history.push("/login");
       } catch (error) {
-        toast.error("Rejestracja nie powiodła się");
+        toast.error("Registration failed");
       }
     },
   });

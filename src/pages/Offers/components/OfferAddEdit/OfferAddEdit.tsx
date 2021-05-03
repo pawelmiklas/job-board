@@ -1,19 +1,19 @@
-import React, { useMemo } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { Box, Container, Flex, Text, Stack, Button } from "@chakra-ui/react";
-import { auth, firestore } from "App";
+import { Box, Button, Container, Flex, Stack, Text } from "@chakra-ui/react";
+import { firestore } from "App";
 import Autocomplete from "components/Autocomplete/Autocomplete";
+import CheckboxGroup from "components/CheckboxGroup/CheckboxGroup";
 import Input from "components/Input/Input";
 import OfferSection from "components/OfferSection/OfferSection";
 import Select from "components/Select/Select";
 import TextArea from "components/TextArea/TextArea";
-import CheckboxGroup from "components/CheckboxGroup/CheckboxGroup";
 import { useFormik } from "formik";
+import useLocalStorage from "hooks/useLocalStorage";
 import { Offer as OfferType } from "hooks/useOffersCollection";
+import useOptions from "hooks/useOptions";
+import React, { useMemo } from "react";
 import { useDocument } from "react-firebase-hooks/firestore";
 import { useHistory, useParams } from "react-router";
 import { toast } from "react-toastify";
-import useOptions from "hooks/useOptions";
 import {
   mapInitialValues,
   mapValues,
@@ -33,7 +33,7 @@ const OfferAddEdit = ({ editable = false }: OfferAddEditProps) => {
   const [value] = useDocument<OfferType>(firestore.doc(`offers/${id}`), {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
-  const [user] = useAuthState(auth);
+  const [user] = useLocalStorage<string | undefined>("userId", undefined);
 
   const data = value?.data();
 
@@ -65,7 +65,7 @@ const OfferAddEdit = ({ editable = false }: OfferAddEditProps) => {
           title: values.title,
           seniority: values.seniority,
           employmentType: values.employmentType,
-          userId: user?.uid,
+          userId: user,
           createdAt: new Date(),
         };
 
@@ -83,6 +83,10 @@ const OfferAddEdit = ({ editable = false }: OfferAddEditProps) => {
       }
     },
   });
+
+  if (editable && data?.userId !== user) {
+    history.goBack();
+  }
 
   return (
     <Box w="100%" minH="1000" color="gray.700" mb="12" px="4">
@@ -242,7 +246,7 @@ const OfferAddEdit = ({ editable = false }: OfferAddEditProps) => {
                   formik.handleSubmit();
                 }}
               >
-                {editable ? "Zapisz" : "Dodaj"}
+                {editable ? "Save" : "Add"}
               </Button>
             </Stack>
           </Flex>

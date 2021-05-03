@@ -59,7 +59,7 @@ const LayoutWrapper = ({ children }: Props) => {
                 >
                   Logout
                 </Button>
-                <Avatar src="https://bit.ly/dan-abramov" />
+                <Avatar src={`https://picsum.photos/seed/${user}/200`} />
               </Box>
             ) : (
               <Box p="4">
