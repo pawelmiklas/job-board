@@ -8,7 +8,7 @@ const Home = () => {
   const [offers] = useOffersCollection({});
 
   return (
-    <Box w="100%" minH="1000" color="gray.700">
+    <Box w="100%" minH="calc(100vh - 160px)" color="gray.700">
       <Box
         d="flex"
         alignItems="center"
@@ -45,14 +45,20 @@ const Home = () => {
           </Link>
         </Box>
         <Flex flexDirection="column" mt="16">
-          {offers?.map((item) => (
-            <OfferCard key={item.id} {...item} />
-          ))}
-        </Flex>
-        <Flex py="8" justifyContent="center">
-          <Link to="/offers">
-            <Text color="gray.500">View all job positions</Text>
-          </Link>
+          {offers?.length ? (
+            <>
+              {offers?.map((item) => (
+                <OfferCard key={item.id} {...item} />
+              ))}
+              <Flex py="8" justifyContent="center">
+                <Link to="/offers">
+                  <Text color="gray.500">View all job positions</Text>
+                </Link>
+              </Flex>
+            </>
+          ) : (
+            <Text textAlign="center">No active offers</Text>
+          )}
         </Flex>
       </Container>
     </Box>

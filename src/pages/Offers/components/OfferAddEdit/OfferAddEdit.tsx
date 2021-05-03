@@ -7,6 +7,7 @@ import Input from "components/Input/Input";
 import OfferSection from "components/OfferSection/OfferSection";
 import Select from "components/Select/Select";
 import TextArea from "components/TextArea/TextArea";
+import { FormErrors } from "constants/formErrors";
 import { useFormik } from "formik";
 import useLocalStorage from "hooks/useLocalStorage";
 import { Offer as OfferType } from "hooks/useOffersCollection";
@@ -15,6 +16,7 @@ import React, { useMemo } from "react";
 import { useDocument } from "react-firebase-hooks/firestore";
 import { useHistory, useParams } from "react-router";
 import { toast } from "react-toastify";
+import * as yup from "yup";
 import {
   mapInitialValues,
   mapValues,
@@ -26,6 +28,41 @@ type OfferAddEditProps = {
 };
 
 export type OptionsShape = { value: string; label: string };
+
+const validationSchema = yup.object().shape({
+  title: yup.string().required(FormErrors.REQUIRED_FIELD),
+  company: yup.string().required(FormErrors.REQUIRED_FIELD),
+  companySize: yup.string().required(FormErrors.REQUIRED_FIELD),
+  recruitmentLanguages: yup.string().required(FormErrors.REQUIRED_FIELD),
+  employmentType: yup.string().required(FormErrors.REQUIRED_FIELD),
+  earnings: yup.string().required(FormErrors.REQUIRED_FIELD),
+  description: yup.string().required(FormErrors.REQUIRED_FIELD),
+  start: yup.string().required(FormErrors.REQUIRED_FIELD),
+  contractDuration: yup.string().required(FormErrors.REQUIRED_FIELD),
+  jobProfile: yup.string().required(FormErrors.REQUIRED_FIELD),
+  location: yup.string().required(FormErrors.REQUIRED_FIELD),
+  seniority: yup.string().required(FormErrors.REQUIRED_FIELD),
+  mustHave: yup
+    .array()
+    .min(1, FormErrors.REQUIRED_FIELD)
+    .required(FormErrors.REQUIRED_FIELD),
+  niceToHave: yup
+    .array()
+    .min(1, FormErrors.REQUIRED_FIELD)
+    .required(FormErrors.REQUIRED_FIELD),
+  perks: yup
+    .array()
+    .min(1, FormErrors.REQUIRED_FIELD)
+    .required(FormErrors.REQUIRED_FIELD),
+  benefits: yup
+    .array()
+    .min(1, FormErrors.REQUIRED_FIELD)
+    .required(FormErrors.REQUIRED_FIELD),
+  workMethodology: yup
+    .array()
+    .min(1, FormErrors.REQUIRED_FIELD)
+    .required(FormErrors.REQUIRED_FIELD),
+});
 
 const OfferAddEdit = ({ editable = false }: OfferAddEditProps) => {
   const history = useHistory();
@@ -43,6 +80,7 @@ const OfferAddEdit = ({ editable = false }: OfferAddEditProps) => {
       ...useMemo(() => mapInitialValues(data, options), [data, options]),
     },
     enableReinitialize: true,
+    validationSchema,
     onSubmit: async (values) => {
       try {
         const data = {
@@ -56,6 +94,8 @@ const OfferAddEdit = ({ editable = false }: OfferAddEditProps) => {
           mustHave: mapValues(values.mustHave),
           niceToHave: mapValues(values.niceToHave),
           offerDetails: {
+            flexibleHours: false,
+            remotePossible: false,
             ...Object.fromEntries(values.other.map((item) => [item, true])),
             contractDuration: values.contractDuration,
             jobProfile: values.jobProfile,
@@ -110,19 +150,21 @@ const OfferAddEdit = ({ editable = false }: OfferAddEditProps) => {
                 formik={formik}
               />
               <Select
+                withEmptyOption
                 name="recruitmentLanguages"
                 formik={formik}
                 options={["Polish", "English"]}
-                withAllOptions={false}
+                withAllOption={false}
                 label="Recruitment language"
               />
             </Stack>
             <Stack direction="row" mt="2">
               <Select
+                withEmptyOption
                 name="employmentType"
                 options={["B2B", "Permanent", "Mandate contract"]}
                 formik={formik}
-                withAllOptions={false}
+                withAllOption={false}
                 label="Employment type"
               />
               <Input
@@ -135,10 +177,11 @@ const OfferAddEdit = ({ editable = false }: OfferAddEditProps) => {
             <Stack direction="row" mt="2">
               <Input name="location" label="Location" formik={formik} />
               <Select
+                withEmptyOption
                 name="seniority"
                 options={["Intern", "Junior", "Mid", "Senior", "Expert"]}
                 formik={formik}
-                withAllOptions={false}
+                withAllOption={false}
                 label="Seniority"
               />
             </Stack>
@@ -193,26 +236,29 @@ const OfferAddEdit = ({ editable = false }: OfferAddEditProps) => {
             </Stack>
             <Stack direction="row" mt="2">
               <Select
+                withEmptyOption
                 name="start"
                 options={["ASAP", "In a month", "In a 3 months"]}
                 formik={formik}
-                withAllOptions={false}
+                withAllOption={false}
                 label="Start"
               />
               <Select
+                withEmptyOption
                 name="contractDuration"
                 options={["ASAP", "In a month", "In a 3 months"]}
                 formik={formik}
-                withAllOptions={false}
+                withAllOption={false}
                 label="Contract Duration"
               />
             </Stack>
             <Stack direction="row" mt="2">
               <Select
+                withEmptyOption
                 name="jobProfile"
                 options={["Mainly new features", "Legacy code"]}
                 formik={formik}
-                withAllOptions={false}
+                withAllOption={false}
                 label="jobProfile"
               />
             </Stack>

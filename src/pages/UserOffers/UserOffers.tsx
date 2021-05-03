@@ -1,4 +1,4 @@
-import { Button, Flex, Grid, Stack } from "@chakra-ui/react";
+import { Button, Flex, Grid, Stack, Text } from "@chakra-ui/react";
 import AuthDashboardWrapper from "components/AuthDashboardWrapper/AuthDashboardWrapper";
 import OfferCard from "components/OfferCard/OfferCard";
 import useLocalStorage from "hooks/useLocalStorage";
@@ -46,9 +46,13 @@ const UserOffers = () => {
           </Stack>
         </Flex>
         <Flex flexDirection="column">
-          {offers?.map((item) => (
-            <OfferCard key={item.id} {...item} withActions />
-          ))}
+          {offers?.length ? (
+            offers?.map((item) => (
+              <OfferCard key={item.id} {...item} withActions />
+            ))
+          ) : (
+            <Text textAlign="center">No active offers</Text>
+          )}
         </Flex>
       </Grid>
     </AuthDashboardWrapper>

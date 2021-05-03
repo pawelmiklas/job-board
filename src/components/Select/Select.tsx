@@ -7,15 +7,17 @@ type SelectProps<F> = {
   formik: FormikProps<F>;
   name: string;
   options: string[];
-  withAllOptions?: boolean;
   label: string;
+  withAllOption?: boolean;
+  withEmptyOption?: boolean;
 };
 
 const Select = <F,>({
   name,
   formik,
   options,
-  withAllOptions = true,
+  withAllOption = true,
+  withEmptyOption = false,
   label,
 }: SelectProps<F>) => {
   const { handleChange, values, errors, touched, handleBlur } = formik;
@@ -38,7 +40,8 @@ const Select = <F,>({
           onBlur={handleBlur}
           errorBorderColor="crimson"
         >
-          {withAllOptions && <option value="all">All</option>}
+          {withEmptyOption && <option value="">Select..</option>}
+          {withAllOption && <option value="all">All</option>}
           {options.map((item) => (
             <option key={item} value={item}>
               {item}

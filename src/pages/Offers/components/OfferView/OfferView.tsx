@@ -25,6 +25,7 @@ import { useParams } from "react-router";
 import { intersectionOptions } from "../OfferAddEdit/OfferAddEdit.utils";
 import NumberFormat from "react-number-format";
 import GoBack from "components/GoBack/GoBack";
+import unCamelCase from "utils/unCamelCase";
 
 const OfferView = () => {
   const { id } = useParams<{ id: string }>();
@@ -126,9 +127,13 @@ const OfferView = () => {
                   {Object.entries(data?.offerDetails || {}).map(
                     ([key, value]) => (
                       <Fragment key={key}>
-                        <Text>{key}</Text>
+                        <Text>{unCamelCase(key)}</Text>
                         <Text color="gray.500">
-                          {typeof value === "boolean" ? "Yes" : value}
+                          {typeof value === "boolean"
+                            ? value
+                              ? "Yes"
+                              : "No"
+                            : value}
                         </Text>
                       </Fragment>
                     )

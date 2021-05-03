@@ -19,7 +19,7 @@ type LoginForm = {
   confirmPassword: string;
 };
 
-const validationSchema = yup.object({
+const validationSchema = yup.object().shape({
   company: yup.string().required(FormErrors.REQUIRED_FIELD),
   name: yup.string().required(FormErrors.REQUIRED_FIELD),
   surname: yup.string().required(FormErrors.REQUIRED_FIELD),
@@ -98,7 +98,9 @@ const Registration = () => {
             variant="solid"
             colorScheme="blue"
             mt="5"
-            onClick={() => formik.handleSubmit()}
+            onClick={() => {
+              formik.handleSubmit();
+            }}
             disabled={formik.isSubmitting}
           >
             Sign up

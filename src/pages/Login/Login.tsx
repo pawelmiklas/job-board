@@ -15,7 +15,7 @@ type LoginForm = {
   password: string;
 };
 
-const validationSchema = yup.object({
+const validationSchema = yup.object().shape({
   login: yup.string().email().required(FormErrors.REQUIRED_FIELD),
   password: yup.string().required(FormErrors.REQUIRED_FIELD),
 });
