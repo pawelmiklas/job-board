@@ -15,7 +15,7 @@ type AuthDashboardWrapperProps = {
 };
 
 const AuthDashboardWrapper = ({ children }: AuthDashboardWrapperProps) => (
-  <Box w="100%" minHeight="calc(100vh - 160px)" color="gray.700" minH="600px">
+  <Box w="100%" minH="calc(100vh - 160px)" color="gray.700">
     <Container pt="4" pb="12" h="100%" maxW="container.xl">
       <Grid templateColumns="repeat(9, 1fr)" gap={4}>
         <GridItem colSpan={2}>
