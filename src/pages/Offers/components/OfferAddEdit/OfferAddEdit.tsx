@@ -84,7 +84,7 @@ const OfferAddEdit = ({ editable = false }: OfferAddEditProps) => {
     },
   });
 
-  if (editable && data?.userId !== user) {
+  if (editable && data?.userId && data.userId !== user) {
     history.goBack();
   }
 
