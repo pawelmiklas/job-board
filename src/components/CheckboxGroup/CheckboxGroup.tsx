@@ -28,7 +28,7 @@ const CheckboxGroup = <F,>({
               key={item.value}
               id={name}
               name={name}
-              checked={arrayHelpers.form.values[name].includes(item.value)}
+              isChecked={arrayHelpers.form.values[name].includes(item.value)}
               onChange={(e) => {
                 if (e.target.checked) {
                   arrayHelpers.push(item.value);
