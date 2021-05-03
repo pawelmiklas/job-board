@@ -16,19 +16,25 @@ import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { firestore } from "App";
 import ListItemPerk from "components/ListItemPerk/ListItemPerk";
+import OfferSection from "components/OfferSection/OfferSection";
+import { Offer as OfferType } from "hooks/useOffersCollection";
+import useOptions from "hooks/useOptions";
+import React, { Fragment, useMemo } from "react";
 import { useDocument } from "react-firebase-hooks/firestore";
 import { useParams } from "react-router";
-import { Offer as OfferType } from "hooks/useOffersCollection";
-import OfferSection from "components/OfferSection/OfferSection";
-import React, { Fragment } from "react";
+import { intersectionOptions } from "../OfferAddEdit/OfferAddEdit.utils";
 
 const OfferView = () => {
   const { id } = useParams<{ id: string }>();
   const [value] = useDocument<OfferType>(firestore.doc(`offers/${id}`), {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
-
+  const options = useOptions();
   const data = value?.data();
+  const assignedLabelsOnValues = useMemo(
+    () => intersectionOptions(options, data),
+    [options, data]
+  );
 
   return (
     <Box w="100%" minH="1000" color="gray.700">
@@ -81,27 +87,27 @@ const OfferView = () => {
               </OfferSection>
               <OfferSection title="Must have">
                 <Stack direction="row" mt="2">
-                  {data?.mustHave.map((item) => (
-                    <Badge key={item} colorScheme="blue">
-                      {item}
+                  {assignedLabelsOnValues?.mustHave.map((item) => (
+                    <Badge key={item.value} colorScheme="blue">
+                      {item.label}
                     </Badge>
                   ))}
                 </Stack>
               </OfferSection>
               <OfferSection title="Nice to have">
                 <Stack direction="row" mt="2">
-                  {data?.niceToHave.map((item) => (
-                    <Badge key={item} colorScheme="blue">
-                      {item}
+                  {assignedLabelsOnValues?.niceToHave.map((item) => (
+                    <Badge key={item.value} colorScheme="blue">
+                      {item.label}
                     </Badge>
                   ))}
                 </Stack>
               </OfferSection>
               <OfferSection title="Work methodology">
                 <Grid templateColumns="repeat(2, 1fr)" gap={1}>
-                  {data?.workMethodology.map((item) => (
-                    <Fragment key={item}>
-                      <Text>{item}</Text>
+                  {assignedLabelsOnValues?.workMethodology.map((item) => (
+                    <Fragment key={item.value}>
+                      <Text>{item.label}</Text>
                       <Flex alignItems="center">
                         <Box color="green.500">
                           <FontAwesomeIcon icon={faCheckSquare} />
@@ -129,8 +135,12 @@ const OfferView = () => {
               <List>
                 <OfferSection title="Perks in the office">
                   <Grid templateColumns="repeat(2, 1fr)" gap={2}>
-                    {data?.perksInOffice.map((item) => (
-                      <ListItemPerk key={item} color="yellow.500" text={item} />
+                    {assignedLabelsOnValues?.perks.map((item) => (
+                      <ListItemPerk
+                        key={item.value}
+                        color="yellow.500"
+                        text={item.label}
+                      />
                     ))}
                   </Grid>
                 </OfferSection>
@@ -138,8 +148,12 @@ const OfferView = () => {
               <List>
                 <OfferSection title="Benefits">
                   <Grid templateColumns="repeat(2, 1fr)" gap={2}>
-                    {data?.benefits.map((item) => (
-                      <ListItemPerk key={item} color="green.500" text={item} />
+                    {assignedLabelsOnValues?.benefits.map((item) => (
+                      <ListItemPerk
+                        key={item.value}
+                        color="green.500"
+                        text={item.label}
+                      />
                     ))}
                   </Grid>
                 </OfferSection>
