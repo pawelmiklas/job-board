@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Box, Container, Flex, Text, Stack, Button } from "@chakra-ui/react";
 import { auth, firestore } from "App";
@@ -13,48 +13,22 @@ import { Offer as OfferType } from "hooks/useOffersCollection";
 import { useDocument } from "react-firebase-hooks/firestore";
 import { useHistory, useParams } from "react-router";
 import { toast } from "react-toastify";
+import useOptions from "hooks/useOptions";
+import {
+  mapInitialValues,
+  mapValues,
+  OfferAddEditForm,
+} from "./OfferAddEdit.utils";
 
 type OfferAddEditProps = {
   editable?: boolean;
 };
 
-type OptionsShape = { value: string; label: string };
-
-type OfferAddEditForm = {
-  title: string;
-  company: string;
-  companySize: string;
-  recruitmentLanguages: string;
-  employmentType: string;
-  earnings: string;
-  description: string;
-  start: string;
-  contractDuration: string;
-  jobProfile: string;
-  location: string;
-  seniority: string;
-  other: string[];
-  mustHave: OptionsShape[];
-  niceToHave: OptionsShape[];
-  perks: OptionsShape[];
-  benefits: OptionsShape[];
-  workMethodology: OptionsShape[];
-};
-
-const options: OptionsShape[] = [
-  { value: "ghana", label: "Ghana" },
-  { value: "nigeria", label: "Nigeria" },
-  { value: "kenya", label: "Kenya" },
-  { value: "southAfrica", label: "South Africa" },
-  { value: "unitedStates", label: "United States" },
-  { value: "canada", label: "Canada" },
-  { value: "germany", label: "Germany" },
-];
-
-const mapValues = (values: OptionsShape[]) => values.map((item) => item.value);
+export type OptionsShape = { value: string; label: string };
 
 const OfferAddEdit = ({ editable = false }: OfferAddEditProps) => {
   const history = useHistory();
+  const options = useOptions();
   const { id } = useParams<{ id: string }>();
   const [value] = useDocument<OfferType>(firestore.doc(`offers/${id}`), {
     snapshotListenOptions: { includeMetadataChanges: true },
@@ -65,28 +39,12 @@ const OfferAddEdit = ({ editable = false }: OfferAddEditProps) => {
 
   const formik = useFormik<OfferAddEditForm>({
     initialValues: {
-      title: "title",
-      company: "company",
-      companySize: "companySize",
-      recruitmentLanguages: "recruitmentLanguages",
-      employmentType: "employmentType",
-      earnings: "earnings",
-      description: "description",
-      start: "start",
-      contractDuration: "",
-      jobProfile: "",
-      location: "",
-      seniority: "",
-      other: [],
-      mustHave: [],
-      niceToHave: [],
-      perks: [],
-      benefits: [],
-      workMethodology: [],
+      ...useMemo(() => mapInitialValues(data, options), [data, options]),
     },
+    enableReinitialize: true,
     onSubmit: async (values) => {
       try {
-        await firestore.collection("offers").add({
+        const data = {
           workMethodology: mapValues(values.workMethodology),
           benefits: mapValues(values.benefits),
           company: values.company,
@@ -109,9 +67,16 @@ const OfferAddEdit = ({ editable = false }: OfferAddEditProps) => {
           employmentType: values.employmentType,
           userId: user?.uid,
           createdAt: new Date(),
-        });
+        };
 
-        toast.success("Offer was added successfully");
+        if (editable) {
+          await firestore.collection("offers").doc(id).update(data);
+          toast.success("Offer was edited successfully");
+        } else {
+          await firestore.collection("offers").add(data);
+          toast.success("Offer was added successfully");
+        }
+
         history.push("/dashboard/offers");
       } catch (error) {
         toast.error("Can't add offer");
@@ -182,7 +147,7 @@ const OfferAddEdit = ({ editable = false }: OfferAddEditProps) => {
               <Box w="100%">
                 <Autocomplete
                   name="mustHave"
-                  options={options}
+                  options={options?.mustHave || []}
                   formik={formik}
                   label="Must have"
                 />
@@ -190,7 +155,7 @@ const OfferAddEdit = ({ editable = false }: OfferAddEditProps) => {
               <Box w="100%">
                 <Autocomplete
                   name="niceToHave"
-                  options={options}
+                  options={options?.niceToHave || []}
                   formik={formik}
                   label="Nice to have"
                 />
@@ -198,7 +163,7 @@ const OfferAddEdit = ({ editable = false }: OfferAddEditProps) => {
               <Box w="100%">
                 <Autocomplete
                   name="workMethodology"
-                  options={options}
+                  options={options?.workMethodology || []}
                   formik={formik}
                   label="Work methodology"
                 />
@@ -206,7 +171,7 @@ const OfferAddEdit = ({ editable = false }: OfferAddEditProps) => {
               <Box w="100%">
                 <Autocomplete
                   name="perks"
-                  options={options}
+                  options={options?.perksInOffice || []}
                   formik={formik}
                   label="Perks in the office"
                 />
@@ -214,7 +179,7 @@ const OfferAddEdit = ({ editable = false }: OfferAddEditProps) => {
               <Box w="100%">
                 <Autocomplete
                   name="benefits"
-                  options={options}
+                  options={options?.benefits || []}
                   formik={formik}
                   label="Benefits"
                 />
