@@ -2,6 +2,7 @@ import { Box, Button, Container, Flex, Stack, Text } from "@chakra-ui/react";
 import { firestore } from "App";
 import Autocomplete from "components/Autocomplete/Autocomplete";
 import CheckboxGroup from "components/CheckboxGroup/CheckboxGroup";
+import GoBack from "components/GoBack/GoBack";
 import Input from "components/Input/Input";
 import OfferSection from "components/OfferSection/OfferSection";
 import Select from "components/Select/Select";
@@ -92,6 +93,7 @@ const OfferAddEdit = ({ editable = false }: OfferAddEditProps) => {
     <Box w="100%" minH="1000" color="gray.700" mb="12" px="4">
       <Container pt="4" maxW="container.lg" border="1px" borderColor="gray.300">
         <Flex flexDirection="column" p="4">
+          <GoBack />
           <Text fontSize="3xl" fontWeight="500" mb="3">
             {editable ? "Job edit" : "Job add"}
           </Text>

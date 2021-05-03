@@ -24,6 +24,7 @@ import { useDocument } from "react-firebase-hooks/firestore";
 import { useParams } from "react-router";
 import { intersectionOptions } from "../OfferAddEdit/OfferAddEdit.utils";
 import NumberFormat from "react-number-format";
+import GoBack from "components/GoBack/GoBack";
 
 const OfferView = () => {
   const { id } = useParams<{ id: string }>();
@@ -40,6 +41,7 @@ const OfferView = () => {
   return (
     <Box w="100%" minH="1000" color="gray.700">
       <Container pt="4" pb="12" maxW="container.lg">
+        <GoBack />
         <Grid templateColumns="repeat(9, 1fr)" gap={4}>
           <GridItem colSpan={6} border="1px" borderColor="gray.300">
             <Flex p="4" pb="0">
