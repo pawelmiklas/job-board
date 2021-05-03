@@ -1,12 +1,10 @@
+import React from "react";
 import { Box, Container, Flex, Text, Button, Input } from "@chakra-ui/react";
 import OfferCard from "components/OfferCard/OfferCard";
 import useOffersCollection from "hooks/useOffersCollection";
-import React from "react";
 import { Link } from "react-router-dom";
 
-interface Props {}
-
-const Home = (props: Props) => {
+const Home = () => {
   const [offers] = useOffersCollection({});
 
   return (
