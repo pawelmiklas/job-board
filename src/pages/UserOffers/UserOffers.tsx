@@ -41,7 +41,7 @@ const UserOffers = () => {
                 history.push(`offers/add`);
               }}
             >
-              Dodaj ofertę
+              Add offer
             </Button>
           </Stack>
         </Flex>
