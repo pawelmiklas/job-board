@@ -19,7 +19,8 @@ const Home = () => {
         color="white"
       >
         <Text fontSize="4xl" fontWeight="bold" textAlign="center">
-          37 Offers for mobile developers
+          {offers && offers.length >= 5 ? "5+" : offers?.length} Offers for
+          mobile developers
         </Text>
         <Text fontSize="xl">Find your dream job!</Text>
       </Box>
