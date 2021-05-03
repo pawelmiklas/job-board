@@ -87,7 +87,7 @@ const OfferCard = ({
         <Flex py="2">
           <Box>
             {benefitLabels.map((item) => (
-              <Badge key={item.value} mr="1">
+              <Badge key={item.value} mr="1" color="blue.400">
                 {item.label}
               </Badge>
             ))}
