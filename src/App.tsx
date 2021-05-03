@@ -67,10 +67,10 @@ const App = () => (
           <AuthorizedRoute exact path="/dashboard/offers/edit/:id">
             <OfferAddEdit editable />
           </AuthorizedRoute>
+          <Route>
+            <NotFound />
+          </Route>
         </Switch>
-        <Route>
-          <NotFound />
-        </Route>
       </LayoutWrapper>
     </ChakraProvider>
   </BrowserRouter>
