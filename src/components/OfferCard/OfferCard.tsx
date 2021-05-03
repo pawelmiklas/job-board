@@ -8,10 +8,13 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { firestore } from "App";
 import { Offer } from "hooks/useOffersCollection";
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 import { dateFormat } from "utils/dateFormat";
+import NumberFormat from "react-number-format";
 
 type OfferCardProps = Pick<
   Offer,
@@ -64,11 +67,18 @@ const OfferCard = ({
           </Box>
           <Spacer />
           <Box>
-            <Text fontSize="md">{salaryFrom} $</Text>
+            <Text fontSize="md">
+              <NumberFormat
+                value={salaryFrom}
+                displayType="text"
+                thousandSeparator
+                suffix="$"
+              />
+            </Text>
           </Box>
         </Flex>
         <Flex py="2">
-          <Text fontSize="md">{description}</Text>
+          <Text fontSize="md">{`${description.slice(0, 350)}...`}</Text>
         </Flex>
         <Flex py="2">
           <Box>
@@ -95,11 +105,18 @@ const OfferCard = ({
               <Button
                 colorScheme="red"
                 size="sm"
-                onClick={(e) => {
+                onClick={async (e) => {
                   e.preventDefault();
+
+                  try {
+                    await firestore.collection("offers").doc(id).delete();
+                    toast.success("Offer was deleted successfully");
+                  } catch (error) {
+                    toast.error("Can't delete offer");
+                  }
                 }}
               >
-                Usuń
+                Delete
               </Button>
               <Button
                 colorScheme="teal"
@@ -109,7 +126,7 @@ const OfferCard = ({
                   history.push(`offers/edit/${id}`);
                 }}
               >
-                Edytuj
+                Edit
               </Button>
             </Stack>
           </Flex>
