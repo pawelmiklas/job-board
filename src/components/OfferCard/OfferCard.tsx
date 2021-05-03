@@ -15,6 +15,7 @@ import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { dateFormat } from "utils/dateFormat";
 import NumberFormat from "react-number-format";
+import useOptions from "hooks/useOptions";
 
 type OfferCardProps = Pick<
   Offer,
@@ -42,6 +43,9 @@ const OfferCard = ({
   withActions = false,
 }: OfferCardProps) => {
   const history = useHistory();
+  const options = useOptions();
+  const benefitLabels =
+    options?.benefits.filter((item) => benefits.includes(item.value)) || [];
 
   return (
     <Link to={`/offers/${id}`}>
@@ -82,9 +86,9 @@ const OfferCard = ({
         </Flex>
         <Flex py="2">
           <Box>
-            {benefits.map((item) => (
-              <Badge key={item} mr="1">
-                {item}
+            {benefitLabels.map((item) => (
+              <Badge key={item.value} mr="1">
+                {item.label}
               </Badge>
             ))}
           </Box>
