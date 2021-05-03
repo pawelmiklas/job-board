@@ -1,7 +1,9 @@
-import { InputGroup } from "@chakra-ui/react";
+import { Flex, InputGroup, Text } from "@chakra-ui/react";
 import { CUIAutoComplete, Item } from "chakra-ui-autocomplete";
 import FormField from "components/FormField/FormField";
 import { FormikProps, getIn } from "formik";
+import _uniqWith from "lodash/uniqWith";
+import _isEqual from "lodash/isEqual";
 import React from "react";
 
 type AutocompleteProps<F> = {
@@ -35,9 +37,15 @@ const Autocomplete = <F,>({
           placeholder=""
           items={options}
           selectedItems={autoCompleteValues}
+          itemRenderer={(selected) => (
+            <Flex flexDir="row" alignItems="center">
+              <Text>{selected.label}</Text>
+            </Flex>
+          )}
           onSelectedItemsChange={(changes) => {
-            setFieldValue(name, changes.selectedItems);
+            setFieldValue(name, _uniqWith(changes.selectedItems, _isEqual));
           }}
+          disableCreateItem
         />
       </InputGroup>
     </FormField>
