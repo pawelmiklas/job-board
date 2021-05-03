@@ -13,6 +13,7 @@ import Dashboard from "pages/Dashboard/Dashboard";
 import AuthorizedRoute from "components/AuthorizedRoute/AuthorizedRoute";
 import UserOffers from "pages/UserOffers/UserOffers";
 import OfferAddEdit from "pages/Offers/components/OfferAddEdit/OfferAddEdit";
+import NotFound from "pages/NotFound/NotFound";
 import "react-toastify/dist/ReactToastify.css";
 
 import firebase from "firebase/app";
@@ -32,46 +33,47 @@ firebase.initializeApp({
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
-const App = () => {
-  return (
-    <BrowserRouter>
-      <ToastContainer />
-      <ChakraProvider>
-        <LayoutWrapper>
-          <ScrollToTop />
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route exact path="/offers">
-              <Offers />
-            </Route>
-            <Route path="/offers/:id">
-              <OfferView />
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/registration">
-              <Registration />
-            </Route>
-            <AuthorizedRoute exact path="/dashboard">
-              <Dashboard />
-            </AuthorizedRoute>
-            <AuthorizedRoute exact path="/dashboard/offers">
-              <UserOffers />
-            </AuthorizedRoute>
-            <AuthorizedRoute exact path="/dashboard/offers/add">
-              <OfferAddEdit />
-            </AuthorizedRoute>
-            <AuthorizedRoute exact path="/dashboard/offers/edit/:id">
-              <OfferAddEdit editable />
-            </AuthorizedRoute>
-          </Switch>
-        </LayoutWrapper>
-      </ChakraProvider>
-    </BrowserRouter>
-  );
-};
+const App = () => (
+  <BrowserRouter>
+    <ToastContainer />
+    <ChakraProvider>
+      <LayoutWrapper>
+        <ScrollToTop />
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route exact path="/offers">
+            <Offers />
+          </Route>
+          <Route path="/offers/:id">
+            <OfferView />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/registration">
+            <Registration />
+          </Route>
+          <AuthorizedRoute exact path="/dashboard">
+            <Dashboard />
+          </AuthorizedRoute>
+          <AuthorizedRoute exact path="/dashboard/offers">
+            <UserOffers />
+          </AuthorizedRoute>
+          <AuthorizedRoute exact path="/dashboard/offers/add">
+            <OfferAddEdit />
+          </AuthorizedRoute>
+          <AuthorizedRoute exact path="/dashboard/offers/edit/:id">
+            <OfferAddEdit editable />
+          </AuthorizedRoute>
+        </Switch>
+        <Route>
+          <NotFound />
+        </Route>
+      </LayoutWrapper>
+    </ChakraProvider>
+  </BrowserRouter>
+);
 
 export default App;
